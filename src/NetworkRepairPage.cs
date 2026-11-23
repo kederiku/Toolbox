@@ -24,6 +24,7 @@ namespace AtelierPC
             Action<string, string> record = null)
         {
             this.window = window;
+            UpdateNotice.WaitForTool(window, () => running || repairing);
             this.diagnose = diagnose;
             this.repair = repair;
             this.record = record;

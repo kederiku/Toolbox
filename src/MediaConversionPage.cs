@@ -99,6 +99,7 @@ namespace AtelierPC
                 e.Handled = true;
                 await LoadDroppedAsync(e.Data);
             };
+            UpdateNotice.WaitForTool(owner, () => running != null);
             owner.Closing += delegate(object sender, CancelEventArgs e) {
                 if (running == null || e.Cancel) return;
                 e.Cancel = true;

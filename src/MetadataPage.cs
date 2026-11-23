@@ -106,6 +106,7 @@ namespace AtelierPC
             };
             ((Button)window.FindName("MetadataFolder")).Click += OpenSavedFolder;
             batchFolder.Click += OpenSavedFolder;
+            UpdateNotice.WaitForTool(window, () => operation != null);
             window.Closing += delegate(object sender, CancelEventArgs e) {
                 if (operation == null || e.Cancel) return;
                 e.Cancel = true;

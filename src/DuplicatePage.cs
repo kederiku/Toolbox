@@ -104,6 +104,7 @@ namespace AtelierPC
             Get<Button>("Modify").Click += delegate { ReturnToComparison(); };
             Get<Button>("Confirm").Click += async delegate { await RecycleAsync(); };
             Get<Grid>("Workspace").SizeChanged += (s, e) => Resize(e.NewSize.Width);
+            UpdateNotice.WaitForTool(window, () => operation != null);
             window.Closing += delegate(object sender, CancelEventArgs e) {
                 if (operation == null || e.Cancel) return;
                 e.Cancel = true;

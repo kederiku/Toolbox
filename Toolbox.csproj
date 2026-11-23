@@ -63,8 +63,15 @@
     <Reference Include="PresentationCore"/><Reference Include="PresentationFramework"/>
     <Reference Include="System.Windows.Forms"/>
     <Compile Include="src\*.cs"/>
+    <Compile Include="updater\UpdateFiles.cs"/>
+    <EmbeddedResource Include="obj\$(Configuration)\Toolbox.UpdateHelper.exe"><LogicalName>AtelierPC.UpdateHelper.exe</LogicalName></EmbeddedResource>
     <EmbeddedResource Include="src\Fenetre.xaml"><LogicalName>AtelierPC.Fenetre.xaml</LogicalName></EmbeddedResource>
     <None Include="src\app.manifest"/><None Include="src\Toolbox.ico"/>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
+  <Target Name="CompileUpdateHelper" BeforeTargets="PrepareForBuild" Inputs="updater\Program.cs;updater\UpdateFiles.cs" Outputs="obj\$(Configuration)\Toolbox.UpdateHelper.exe">
+    <MakeDir Directories="obj\$(Configuration)"/>
+    <Csc Sources="updater\Program.cs;updater\UpdateFiles.cs" OutputAssembly="obj\$(Configuration)\Toolbox.UpdateHelper.exe"
+         TargetType="exe" References="System.dll;System.Windows.Forms.dll" CodePage="65001" Optimize="true" />
+  </Target>
 </Project>

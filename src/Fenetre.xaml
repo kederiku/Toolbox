@@ -459,6 +459,19 @@
       </Grid>
     </DataTemplate>
   </Window.Resources>
+  <DockPanel>
+    <Border x:Name="UpdateBanner" DockPanel.Dock="Top" Visibility="Collapsed" Padding="16,10"
+            Background="{StaticResource AccentSoftBrush}" BorderBrush="{StaticResource LineBrush}" BorderThickness="0,0,0,1">
+      <StackPanel>
+        <TextBlock x:Name="UpdateMessage" TextWrapping="Wrap" FontWeight="SemiBold"/>
+        <ProgressBar x:Name="UpdateProgress" Visibility="Collapsed" Minimum="0" Maximum="100" Height="6"
+                     Margin="0,8,0,0" AutomationProperties.Name="Téléchargement de la mise à jour"/>
+        <WrapPanel Margin="0,8,0,0">
+          <Button x:Name="UpdatePrimary" Style="{StaticResource PrimaryAction}" Margin="0,0,8,0"/>
+          <Button x:Name="UpdateSecondary" Style="{StaticResource Action}"/>
+        </WrapPanel>
+      </StackPanel>
+    </Border>
   <Grid Background="{StaticResource CanvasBrush}">
     <Grid.ColumnDefinitions><ColumnDefinition x:Name="RailWidth" Width="222"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
     <Button x:Name="MenuShade" Grid.ColumnSpan="2" Panel.ZIndex="1" Visibility="Collapsed" Focusable="False"
@@ -1948,4 +1961,5 @@
       </Border>
     </Grid>
   </Grid>
+  </DockPanel>
 </Window>

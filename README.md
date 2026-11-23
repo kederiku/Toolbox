@@ -31,6 +31,14 @@ Pendant un ralentissement, choisissez **Lancer la mesure**. Après trois seconde
 
 L’inventaire et l’analyse restent sur le PC. Les résultats reflètent les signalements de Windows au moment de la vérification. Un appareil totalement invisible pour Windows, un faux contact ou une panne intermittente peuvent nécessiter un essai de branchement. Une aide est disponible sous les résultats.
 
+### Mettre Toolbox à jour
+
+À partir de la version 1.7.0, Toolbox consulte la dernière version stable sur GitHub au démarrage. Si une mise à jour est disponible, un bandeau affiche son numéro et la taille du fichier. Cliquez sur **Mettre à jour** pour le télécharger, ou sur **Plus tard** pour continuer. Hors connexion, vous pouvez utiliser les outils comme d’habitude.
+
+Une fois le fichier vérifié, cliquez sur **Redémarrer et installer**. Toolbox se ferme, remplace l’exécutable à son emplacement actuel et rouvre la nouvelle version. Vos préférences et votre historique sont conservés. Si le dossier est protégé, Toolbox propose de télécharger la version sur GitHub.
+
+Si vous utilisez encore Toolbox 1.6.0, fermez-le et remplacez une dernière fois son exécutable par celui du lien en haut de cette page.
+
 ### Ajouter un filigrane
 
 Ouvrez **Fichiers → Ajouter un filigrane**. Déposez un PDF, un document Word (.docx) ou une image et saisissez votre texte. Choisissez **Texte unique** pour le centrer en diagonale ou le placer dans un coin, ou **Texte répété** pour couvrir la page. Réglez sa taille et son opacité, puis cliquez sur **Enregistrer une copie…**.
