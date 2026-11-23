@@ -1,5 +1,7 @@
 # Toolbox
 
+**[Télécharger Toolbox.exe pour Windows](https://github.com/kederiku/Toolbox/releases/latest/download/Toolbox.exe)**
+
 Toolbox est un exécutable portable en français pour Windows 10 et Windows 11. Au démarrage, le catalogue présente les quatorze outils. Cliquez sur une carte pour ouvrir un outil, ou filtrez par famille.
 
 | Famille | Outils |
@@ -220,10 +222,10 @@ Les contrôles couvrent les explications, les critères de réactivation, la vé
 
 Les deux méthodes de compilation incorporent les moteurs et leurs notices dans l’exécutable. Les contrôles audio et vidéo encodent de courts extraits, relisent les fichiers produits et vérifient la protection des originaux. Les contrôles audio vérifient aussi le choix de la piste et comparent les échantillons de plusieurs formats sans perte. [Provenance d’ImageMagick](vendor/ImageMagick/ORIGINE.md) · [Provenance de FFmpeg](vendor/FFmpeg/ORIGINE.md)
 
-### Télécharger une compilation GitHub Actions
+### Publier une nouvelle version sur GitHub
 
 Le workflow [Compiler et tester Toolbox](.github/workflows/toolbox.yml) compile le logiciel sous Windows et lance les tests à chaque push et pour les pull requests. Vous pouvez aussi le lancer depuis l’onglet **Actions** avec **Run workflow**. Conservez le dossier `vendor/` dans le dépôt Git pour que la compilation retrouve les moteurs embarqués.
 
-Dans l’onglet **Actions**, ouvrez une exécution réussie et téléchargez **Toolbox-Windows** dans la section **Artifacts**. Décompressez l’archive pour obtenir **Toolbox.exe**.
+Pour publier une version, créez un tag au format `vX.Y.Z` sur le commit à distribuer et poussez ce tag sur GitHub. Une fois les tests réussis, le workflow joint **Toolbox.exe** à la version dans **Releases**. Le lien en haut de ce README télécharge directement l’exécutable de la dernière version.
 
 Les signalements sont lus via SetupAPI et le gestionnaire de configuration de Windows. Les explications correspondent aux codes du Gestionnaire de périphériques. [Référence Microsoft des codes](https://learn.microsoft.com/windows-hardware/drivers/install/device-manager-error-messages)

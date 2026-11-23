@@ -34,3 +34,34 @@ jobs:
           path: Toolbox.exe
           if-no-files-found: error
           compression-level: 0
+
+  release:
+    name: Publier Toolbox.exe
+    needs: windows
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Récupérer la compilation Windows testée
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: Toolbox-Windows
+
+      - name: Joindre l’exécutable à la version GitHub
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          if ! release=$(gh release view "$TAG" --json isDraft,assets); then
+            gh release create "$TAG" Toolbox.exe --verify-tag \
+              --title "Toolbox ${TAG#v}" \
+              --notes "Sous Windows 10 ou 11, téléchargez **Toolbox.exe** dans les fichiers de cette version, puis ouvrez-le."
+          elif jq -e '.isDraft' <<< "$release" > /dev/null; then
+            gh release upload "$TAG" Toolbox.exe --clobber
+            gh release edit "$TAG" --draft=false
+          elif ! jq -e 'any(.assets[]; .name == "Toolbox.exe" and .size > 0)' <<< "$release" > /dev/null; then
+            gh release upload "$TAG" Toolbox.exe
+          fi
