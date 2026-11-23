@@ -54,4 +54,5 @@ Ouvrez **Rapport d’intervention** depuis le menu. Les contrôles effectués pe
 
 ## Développement
 
-Les commandes de compilation, les tests, l’ajout d’un outil et la publication d’une version sont décrits dans le [guide de développement](docs/developpement.md).
+- [Guide de développement](docs/developpement.md) — Compiler Toolbox, lancer les tests et ajouter un outil.
+- [Workflow Git et GitHub Actions](docs/workflow-git.md) — Proposer un changement, le fusionner sur `main` et publier une version téléchargeable.

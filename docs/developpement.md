@@ -20,12 +20,8 @@ Les deux méthodes de compilation incorporent les moteurs et leurs notices dans 
 3. Si l’outil doit charger des données à l’ouverture ou arrêter un travail en cours à la sortie, renseignez `OnOpen` ou `OnLeave`. Le bouton principal de la vue peut être indiqué dans `PrimaryAction` pour recevoir le focus depuis le catalogue.
 4. Créez la fiche de l’outil dans `docs/outils/` et ajoutez son lien dans le [catalogue du README](../README.md).
 
-## Publier une nouvelle version sur GitHub
+## Contribuer et publier
 
-Le workflow [Compiler et tester Toolbox](../.github/workflows/toolbox.yml) compile le logiciel sous Windows et lance les tests à chaque push et pour les pull requests. Vous pouvez aussi le lancer depuis l’onglet **Actions** avec **Run workflow**. Conservez le dossier `vendor/` dans le dépôt Git pour que la compilation retrouve les moteurs embarqués.
-
-Pour publier la version `X.Y.Z`, réglez `AssemblyVersion` dans [`src/App.cs`](../src/App.cs) et la version de `assemblyIdentity` dans [`src/app.manifest`](../src/app.manifest) sur `X.Y.Z.0`. Le mécanisme de mise à jour vérifie que la version de l’exécutable correspond au tag GitHub.
-
-Après la fusion sur `main`, créez le tag `vX.Y.Z` sur le commit à distribuer et poussez ce tag sur GitHub. Une fois les tests réussis, le workflow joint **Toolbox.exe** à la version dans **Releases**. Le lien du [README](../README.md) télécharge directement l’exécutable de la dernière version.
+Conservez le dossier `vendor/` dans le dépôt pour que les deux méthodes de compilation retrouvent les moteurs embarqués. Pour proposer vos changements, vérifier la pull request et distribuer l’exécutable, suivez le [workflow Git et GitHub Actions](workflow-git.md).
 
 [Retour au README](../README.md)
