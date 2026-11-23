@@ -24,6 +24,8 @@ Les deux méthodes de compilation incorporent les moteurs et leurs notices dans 
 
 Le workflow [Compiler et tester Toolbox](../.github/workflows/toolbox.yml) compile le logiciel sous Windows et lance les tests à chaque push et pour les pull requests. Vous pouvez aussi le lancer depuis l’onglet **Actions** avec **Run workflow**. Conservez le dossier `vendor/` dans le dépôt Git pour que la compilation retrouve les moteurs embarqués.
 
-Pour publier une version, créez un tag au format `vX.Y.Z` sur le commit à distribuer et poussez ce tag sur GitHub. Une fois les tests réussis, le workflow joint **Toolbox.exe** à la version dans **Releases**. Le lien du [README](../README.md) télécharge directement l’exécutable de la dernière version.
+Pour publier la version `X.Y.Z`, réglez `AssemblyVersion` dans [`src/App.cs`](../src/App.cs) et la version de `assemblyIdentity` dans [`src/app.manifest`](../src/app.manifest) sur `X.Y.Z.0`. Le mécanisme de mise à jour vérifie que la version de l’exécutable correspond au tag GitHub.
+
+Après la fusion sur `main`, créez le tag `vX.Y.Z` sur le commit à distribuer et poussez ce tag sur GitHub. Une fois les tests réussis, le workflow joint **Toolbox.exe** à la version dans **Releases**. Le lien du [README](../README.md) télécharge directement l’exécutable de la dernière version.
 
 [Retour au README](../README.md)
