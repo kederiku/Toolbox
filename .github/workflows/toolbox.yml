@@ -1,0 +1,36 @@
+name: Compiler et tester Toolbox
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    runs-on: windows-2025
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: powershell
+    steps:
+      - name: Récupérer les sources
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Compiler Toolbox.exe
+        run: .\compiler.ps1
+
+      - name: Exécuter les tests
+        run: .\compiler.ps1 -Tester
+
+      - name: Rendre Toolbox.exe téléchargeable
+        uses: actions/upload-artifact@v7
+        with:
+          name: Toolbox-Windows
+          path: Toolbox.exe
+          if-no-files-found: error
+          compression-level: 0

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<policymap>
+  <policy domain="delegate" rights="none" pattern="*"/>
+  <policy domain="filter" rights="none" pattern="*"/>
+  <policy domain="path" rights="none" pattern="@*"/>
+  <policy domain="coder" rights="none" pattern="*"/>
+  <policy domain="coder" rights="read|write" pattern="{PNG,JPEG,JPG,BMP,BMP2,BMP3,GIF,WEBP,TIFF,TIFF64,ICO,CUR,ICON,HEIC,HEIF,AVIF,JXL,JP2,J2K,J2C,JPC,JNG,MNG,PSD,PSB,TGA,DDS,EXR,HDR,QOI,PNM,PAM,PBM,PGM,PPM,PFM,PHM,PGX,PCX,DCX,MIFF,SGI,SUN,RAS,XBM,XPM,WBMP,DPX,CIN,FITS,FARBFELD,FF,OTB,PICT,PCT,VIFF,VICAR,AAI,ART,AVS,SIX,SIXEL,ASE,ASEPRITE,MTV,PALM,PDB,RGF,FL32,VIPS}"/>
+  <policy domain="coder" rights="read" pattern="{DNG,RAW,DCRAW,3FR,ARW,CR2,CR3,CRW,DCR,ERF,FFF,IIQ,K25,KDC,MDC,MEF,MOS,MRW,NEF,NRW,ORF,PEF,RAF,RMF,RW2,RWL,SR2,SRF,SRW,X3F,XCF,SVG,RSVG,SVGZ,DCM,EMF,WMF,MPO,CUT,MAC,PCD,PIX,RLA,RLE,WPG}"/>
+  <policy domain="coder" rights="write" pattern="PDF"/>
+  <policy domain="resource" name="memory" value="256MiB"/>
+  <policy domain="resource" name="map" value="512MiB"/>
+  <policy domain="resource" name="disk" value="2GiB"/>
+  <policy domain="resource" name="list-length" value="1024"/>
+  <policy domain="resource" name="thread" value="4"/>
+</policymap>

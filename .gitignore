@@ -1,0 +1,36 @@
+# Exécutables produits à la racine et sorties de compilation
+/*.exe
+/bin/
+/obj/
+/TestResults/
+
+# Réglages personnels des outils de développement et documents de travail
+/.vs/
+/.codex/
+/docs/superpowers/
+/docs/apercu-*.png
+*.suo
+*.user
+*.rsuser
+
+# Configuration locale et clés privées
+.env
+.env.*
+!.env.example
+/.aws/
+/.ssh/
+*.pfx
+*.p12
+*.key
+*.pem
+id_rsa
+id_ed25519
+
+# Données de diagnostic et fichiers temporaires
+historique-debit.json
+outils.ini
+*.log
+*.dmp
+*.tmp
+Thumbs.db
+Desktop.ini

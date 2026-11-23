@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
+    <Platform Condition="'$(Platform)' == ''">AnyCPU</Platform>
+    <ProjectGuid>{16D3E297-486E-4497-AE44-012668901BFF}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>AtelierPC</RootNamespace>
+    <AssemblyName>Toolbox</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <ApplicationManifest>src\app.manifest</ApplicationManifest>
+    <ApplicationIcon>src\Toolbox.ico</ApplicationIcon>
+    <CodePage>65001</CodePage>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <DebugSymbols>true</DebugSymbols><DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System"/><Reference Include="System.Core"/>
+    <Reference Include="System.IO.Compression"/>
+    <Reference Include="System.Runtime.Serialization"/>
+    <Reference Include="System.Runtime"/>
+    <Reference Include="System.Drawing"/><Reference Include="System.Web.Extensions"/>
+    <Reference Include="System.Runtime.WindowsRuntime"/><Reference Include="System.Runtime.InteropServices.WindowsRuntime"/>
+    <Reference Include="Windows.Foundation"><HintPath>$(SystemRoot)\System32\WinMetadata\Windows.Foundation.winmd</HintPath><Private>False</Private></Reference>
+    <Reference Include="Windows.Storage"><HintPath>$(SystemRoot)\System32\WinMetadata\Windows.Storage.winmd</HintPath><Private>False</Private></Reference>
+    <Reference Include="Windows.Data"><HintPath>$(SystemRoot)\System32\WinMetadata\Windows.Data.winmd</HintPath><Private>False</Private></Reference>
+    <Reference Include="Windows.Graphics"><HintPath>$(SystemRoot)\System32\WinMetadata\Windows.Graphics.winmd</HintPath><Private>False</Private></Reference>
+    <Reference Include="Windows.Networking">
+      <HintPath>$(SystemRoot)\System32\WinMetadata\Windows.Networking.winmd</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.Core">
+      <HintPath>vendor\WebView2\lib\Microsoft.Web.WebView2.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.Wpf">
+      <HintPath>vendor\WebView2\lib\Microsoft.Web.WebView2.Wpf.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <EmbeddedResource Include="vendor\WebView2\lib\Microsoft.Web.WebView2.Core.dll"><LogicalName>AtelierPC.WebView2.Core.dll</LogicalName></EmbeddedResource>
+    <EmbeddedResource Include="vendor\WebView2\lib\Microsoft.Web.WebView2.Wpf.dll"><LogicalName>AtelierPC.WebView2.Wpf.dll</LogicalName></EmbeddedResource>
+    <EmbeddedResource Include="vendor\WebView2\x86\WebView2Loader.dll"><LogicalName>AtelierPC.WebView2.x86.dll</LogicalName></EmbeddedResource>
+    <EmbeddedResource Include="vendor\WebView2\x64\WebView2Loader.dll"><LogicalName>AtelierPC.WebView2.x64.dll</LogicalName></EmbeddedResource>
+    <EmbeddedResource Include="vendor\WebView2\arm64\WebView2Loader.dll"><LogicalName>AtelierPC.WebView2.arm64.dll</LogicalName></EmbeddedResource>
+    <EmbeddedResource Include="vendor\WebView2\LICENSE.txt"><LogicalName>AtelierPC.WebView2.LICENSE.txt</LogicalName></EmbeddedResource>
+    <EmbeddedResource Include="vendor\WebView2\NOTICE.txt"><LogicalName>AtelierPC.WebView2.NOTICE.txt</LogicalName></EmbeddedResource>
+    <EmbeddedResource Include="src\RouterPageCapture.js"><LogicalName>AtelierPC.RouterPageCapture.js</LogicalName></EmbeddedResource>
+    <EmbeddedResource Include="vendor\ImageMagick\ImageMagick-7.1.2-36-Q8-x86.zip"><LogicalName>AtelierPC.ImageEngine.zip</LogicalName></EmbeddedResource>
+    <EmbeddedResource Include="vendor\FFmpeg\FFmpeg-9.1-essentials-x64.zip"><LogicalName>AtelierPC.VideoEngine.zip</LogicalName></EmbeddedResource>
+    <EmbeddedResource Include="vendor\YouTube\yt-dlp-2026.10.26-win-x64.zip"><LogicalName>AtelierPC.YoutubeEngine.zip</LogicalName></EmbeddedResource>
+    <EmbeddedResource Include="vendor\YouTube\deno-2.9.8-win-x64.zip"><LogicalName>AtelierPC.Deno.zip</LogicalName></EmbeddedResource>
+    <EmbeddedResource Include="vendor\YouTube\Deno-LICENSE.md"><LogicalName>AtelierPC.Deno.LICENSE</LogicalName></EmbeddedResource>
+    <EmbeddedResource Include="vendor\qpdf\qpdf-12.4.2-x86.zip"><LogicalName>AtelierPC.PdfEngine.zip</LogicalName></EmbeddedResource>
+    <EmbeddedResource Include="src\ImagePolicy.xml"><LogicalName>AtelierPC.ImagePolicy.xml</LogicalName></EmbeddedResource>
+    <Reference Include="System.Xml"/><Reference Include="System.Xaml"/><Reference Include="WindowsBase"/>
+    <Reference Include="PresentationCore"/><Reference Include="PresentationFramework"/>
+    <Reference Include="System.Windows.Forms"/>
+    <Compile Include="src\*.cs"/>
+    <EmbeddedResource Include="src\Fenetre.xaml"><LogicalName>AtelierPC.Fenetre.xaml</LogicalName></EmbeddedResource>
+    <None Include="src\app.manifest"/><None Include="src\Toolbox.ico"/>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
+</Project>

@@ -1,0 +1,12 @@
+* text=auto
+*.ps1 text eol=crlf
+*.yml text eol=lf
+
+*.dll binary
+*.ico binary
+*.png binary
+*.zip binary
+
+# Préserver les notices d’origine des éditeurs à l’octet près.
+vendor/WebView2/*.txt -text -whitespace
+vendor/YouTube/Deno-LICENSE.md -text

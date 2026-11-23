@@ -1,0 +1,1951 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Toolbox" Width="1150" Height="795" MinWidth="415" MinHeight="390"
+        WindowStartupLocation="CenterScreen" Background="{DynamicResource CanvasBrush}" FontFamily="Segoe UI"
+        Foreground="{DynamicResource TextBrush}" FontSize="14" Language="fr-FR" UseLayoutRounding="True">
+  <Window.Resources>
+    <SolidColorBrush x:Key="CanvasBrush" Color="#F5F6FA"/>
+    <SolidColorBrush x:Key="SurfaceBrush" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="TextBrush" Color="#1A2438"/>
+    <SolidColorBrush x:Key="MutedBrush" Color="#526078"/>
+    <SolidColorBrush x:Key="LineBrush" Color="#D7DDEA"/>
+    <SolidColorBrush x:Key="FieldLineBrush" Color="#8996AF"/>
+    <SolidColorBrush x:Key="InkBrush" Color="#172139"/>
+    <SolidColorBrush x:Key="InkMutedBrush" Color="#D7E0F4"/>
+    <SolidColorBrush x:Key="InkHoverBrush" Color="#293958"/>
+    <SolidColorBrush x:Key="AccentBrush" Color="#3656D4"/>
+    <SolidColorBrush x:Key="AccentHoverBrush" Color="#2946BD"/>
+    <SolidColorBrush x:Key="AccentPressedBrush" Color="#203995"/>
+    <SolidColorBrush x:Key="AccentSoftBrush" Color="#EEF2FF"/>
+    <SolidColorBrush x:Key="AccentLineBrush" Color="#B8C6F4"/>
+    <SolidColorBrush x:Key="DisabledFillBrush" Color="#E8EBF1"/>
+    <SolidColorBrush x:Key="DisabledTextBrush" Color="#5C687C"/>
+    <SolidColorBrush x:Key="SuccessBrush" Color="#24624E"/>
+    <SolidColorBrush x:Key="SuccessSoftBrush" Color="#EAF6F0"/>
+    <SolidColorBrush x:Key="SuccessLineBrush" Color="#AFD6C1"/>
+    <SolidColorBrush x:Key="WarningBrush" Color="#835113"/>
+    <SolidColorBrush x:Key="WarningSoftBrush" Color="#FFF3DC"/>
+    <SolidColorBrush x:Key="WarningLineBrush" Color="#E3C595"/>
+    <Style x:Key="FocusRing" TargetType="Control">
+      <Setter Property="Template"><Setter.Value><ControlTemplate>
+        <Border BorderBrush="{StaticResource AccentBrush}" BorderThickness="2" CornerRadius="8" Margin="-2" IsHitTestVisible="False">
+          <Border BorderBrush="{StaticResource SurfaceBrush}" BorderThickness="1" CornerRadius="6"/>
+        </Border>
+      </ControlTemplate></Setter.Value></Setter>
+    </Style>
+    <Style TargetType="Button" x:Key="Action">
+      <Setter Property="Background" Value="{StaticResource SurfaceBrush}"/><Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+      <Setter Property="BorderBrush" Value="{StaticResource LineBrush}"/><Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="Padding" Value="14,8"/><Setter Property="FontWeight" Value="SemiBold"/>
+      <Setter Property="FocusVisualStyle" Value="{StaticResource FocusRing}"/>
+      <Setter Property="HorizontalContentAlignment" Value="Center"/><Setter Property="Cursor" Value="Hand"/>
+      <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="Button">
+        <Grid>
+          <Border x:Name="Frame" CornerRadius="7" Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"/>
+          <Border x:Name="Interaction" CornerRadius="7" IsHitTestVisible="False"/>
+          <ContentPresenter Margin="{TemplateBinding Padding}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" RecognizesAccessKey="True"/>
+        </Grid>
+        <ControlTemplate.Triggers>
+          <Trigger Property="IsMouseOver" Value="True">
+            <Setter TargetName="Interaction" Property="Background" Value="#123F67D4"/>
+            <Setter TargetName="Frame" Property="BorderBrush" Value="{StaticResource FieldLineBrush}"/>
+          </Trigger>
+          <Trigger Property="IsPressed" Value="True"><Setter TargetName="Interaction" Property="Background" Value="#293F67D4"/></Trigger>
+          <Trigger Property="IsEnabled" Value="False">
+            <Setter TargetName="Frame" Property="Background" Value="{StaticResource DisabledFillBrush}"/>
+            <Setter TargetName="Frame" Property="BorderBrush" Value="{StaticResource LineBrush}"/>
+            <Setter TargetName="Interaction" Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource DisabledTextBrush}"/>
+          </Trigger>
+        </ControlTemplate.Triggers>
+      </ControlTemplate></Setter.Value></Setter>
+      <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+    <Style x:Key="PrimaryAction" TargetType="Button" BasedOn="{StaticResource Action}">
+      <Setter Property="Background" Value="{StaticResource AccentBrush}"/><Setter Property="BorderBrush" Value="Transparent"/>
+      <Setter Property="Foreground" Value="{StaticResource SurfaceBrush}"/>
+      <Style.Triggers>
+        <Trigger Property="IsMouseOver" Value="True"><Setter Property="Background" Value="{StaticResource AccentHoverBrush}"/></Trigger>
+        <Trigger Property="IsPressed" Value="True"><Setter Property="Background" Value="{StaticResource AccentPressedBrush}"/></Trigger>
+      </Style.Triggers>
+    </Style>
+    <Style x:Key="Nav" TargetType="Button" BasedOn="{StaticResource Action}">
+      <Setter Property="Background" Value="Transparent"/><Setter Property="Foreground" Value="{StaticResource InkMutedBrush}"/>
+      <Setter Property="BorderBrush" Value="Transparent"/><Setter Property="Padding" Value="11,8"/>
+      <Setter Property="HorizontalContentAlignment" Value="Stretch"/><Setter Property="Margin" Value="0,1"/>
+      <Style.Triggers><Trigger Property="IsMouseOver" Value="True"><Setter Property="Background" Value="{StaticResource InkHoverBrush}"/></Trigger></Style.Triggers>
+    </Style>
+    <Style x:Key="Glyph" TargetType="TextBlock">
+      <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/><Setter Property="FontSize" Value="17"/>
+      <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    <Style x:Key="Card" TargetType="Border">
+      <Setter Property="CornerRadius" Value="12"/><Setter Property="Background" Value="{StaticResource SurfaceBrush}"/>
+      <Setter Property="BorderBrush" Value="{StaticResource LineBrush}"/><Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="Padding" Value="20,18"/>
+    </Style>
+    <Style x:Key="ConverterPane" TargetType="Border" BasedOn="{StaticResource Card}">
+      <Setter Property="Padding" Value="18"/><Setter Property="CornerRadius" Value="14"/>
+    </Style>
+    <Style x:Key="ConverterHeading" TargetType="TextBlock">
+      <Setter Property="FontSize" Value="19"/><Setter Property="FontWeight" Value="SemiBold"/>
+      <Setter Property="Foreground" Value="{StaticResource TextBrush}"/><Setter Property="TextWrapping" Value="Wrap"/>
+      <Setter Property="Margin" Value="0,0,0,15"/>
+    </Style>
+    <Style x:Key="ConverterLabel" TargetType="Label">
+      <Setter Property="Padding" Value="0,0,0,5"/><Setter Property="FontSize" Value="13"/>
+      <Setter Property="FontWeight" Value="SemiBold"/><Setter Property="Foreground" Value="{StaticResource MutedBrush}"/>
+    </Style>
+    <Style x:Key="ConverterDrop" TargetType="Border">
+      <Setter Property="Background" Value="{DynamicResource MediaTint}"/><Setter Property="CornerRadius" Value="10"/>
+      <Setter Property="AllowDrop" Value="True"/>
+      <Style.Triggers><Trigger Property="Tag" Value="Drag"><Setter Property="Background" Value="{DynamicResource MediaHighlight}"/></Trigger></Style.Triggers>
+    </Style>
+    <Style x:Key="ConverterOutline" TargetType="Rectangle">
+      <Setter Property="Stroke" Value="{DynamicResource MediaOutline}"/><Setter Property="StrokeThickness" Value="1"/>
+      <Setter Property="RadiusX" Value="10"/><Setter Property="RadiusY" Value="10"/><Setter Property="StrokeDashArray" Value="4,4"/>
+      <Setter Property="IsHitTestVisible" Value="False"/>
+      <Style.Triggers><DataTrigger Binding="{Binding Tag, RelativeSource={RelativeSource AncestorType=Border}}" Value="Drag">
+        <Setter Property="Stroke" Value="{DynamicResource MediaInk}"/><Setter Property="StrokeThickness" Value="2"/>
+      </DataTrigger></Style.Triggers>
+    </Style>
+    <Style x:Key="ConverterArtArea" TargetType="Grid">
+      <Setter Property="Height" Value="103"/>
+      <Style.Triggers><Trigger Property="Tag" Value="Compact"><Setter Property="Height" Value="62"/></Trigger></Style.Triggers>
+    </Style>
+    <Style x:Key="ConverterArtwork" TargetType="ContentControl">
+      <Setter Property="Focusable" Value="False"/><Setter Property="IsTabStop" Value="False"/><Setter Property="IsHitTestVisible" Value="False"/>
+      <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ContentControl">
+        <Viewbox Stretch="Uniform">
+          <Canvas Width="166" Height="100">
+            <Ellipse Width="94" Height="8" Canvas.Left="34" Canvas.Top="89" Fill="{DynamicResource MediaInk}" Opacity=".09"/>
+            <Path Data="M22,24 H30 M26,20 V28 M141,62 H148 M145,58 V65" Stroke="{DynamicResource MediaInk}" Opacity=".45" StrokeThickness="1.3"/>
+            <Rectangle Canvas.Left="42" Canvas.Top="13" Width="87" Height="69" RadiusX="7" RadiusY="7" Fill="{DynamicResource MediaHighlight}"
+                       Stroke="{DynamicResource MediaOutline}" RenderTransformOrigin=".5,.5">
+              <Rectangle.RenderTransform><RotateTransform Angle="11"/></Rectangle.RenderTransform>
+            </Rectangle>
+            <Rectangle Canvas.Left="30" Canvas.Top="18" Width="94" Height="66" RadiusX="7" RadiusY="7" Fill="White"
+                       Stroke="{DynamicResource MediaOutline}" RenderTransformOrigin=".5,.5">
+              <Rectangle.RenderTransform><RotateTransform Angle="-9"/></Rectangle.RenderTransform>
+            </Rectangle>
+            <Border Canvas.Left="38" Canvas.Top="18" Width="93" Height="64" Background="White" CornerRadius="7"
+                    BorderBrush="{DynamicResource MediaInk}" BorderThickness="1.3">
+              <Grid>
+                <Grid.RowDefinitions><RowDefinition Height="12"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+                <Path Data="M8,7 H10 M14,7 H16 M20,7 H22" Stroke="{DynamicResource MediaOutline}" StrokeThickness="2" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+                <Border Grid.Row="1" Margin="5,0,5,5" CornerRadius="3" Background="{DynamicResource MediaInk}">
+                  <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+              </Grid>
+            </Border>
+            <Ellipse Width="4" Height="4" Canvas.Left="138" Canvas.Top="22" Fill="{DynamicResource MediaInk}" Opacity=".55"/>
+          </Canvas>
+        </Viewbox>
+      </ControlTemplate></Setter.Value></Setter>
+    </Style>
+    <Style x:Key="ConverterMessage" TargetType="TextBlock">
+      <Setter Property="TextWrapping" Value="Wrap"/><Setter Property="FontSize" Value="13"/>
+      <Setter Property="Margin" Value="0,8,0,0"/><Setter Property="Foreground" Value="{StaticResource MutedBrush}"/>
+      <Style.Triggers><Trigger Property="Text" Value=""><Setter Property="Visibility" Value="Collapsed"/></Trigger></Style.Triggers>
+    </Style>
+    <Style x:Key="ConversionResult" TargetType="Border" BasedOn="{StaticResource Card}">
+      <Setter Property="Background" Value="{StaticResource WarningSoftBrush}"/><Setter Property="BorderBrush" Value="{StaticResource WarningLineBrush}"/>
+      <Setter Property="TextElement.Foreground" Value="{StaticResource WarningBrush}"/>
+      <Style.Triggers><Trigger Property="Tag" Value="Complet">
+        <Setter Property="Background" Value="{StaticResource SuccessSoftBrush}"/><Setter Property="BorderBrush" Value="{StaticResource SuccessLineBrush}"/>
+        <Setter Property="TextElement.Foreground" Value="{StaticResource SuccessBrush}"/>
+      </Trigger></Style.Triggers>
+    </Style>
+    <Style TargetType="TextBox">
+      <Setter Property="Background" Value="{StaticResource SurfaceBrush}"/><Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+      <Setter Property="BorderBrush" Value="{StaticResource FieldLineBrush}"/><Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="Padding" Value="9,6"/><Setter Property="VerticalContentAlignment" Value="Center"/>
+      <Setter Property="SelectionBrush" Value="{StaticResource AccentBrush}"/>
+      <Setter Property="FocusVisualStyle" Value="{StaticResource FocusRing}"/>
+      <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="TextBox">
+        <Border x:Name="InputFrame" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="6">
+          <ScrollViewer x:Name="PART_ContentHost" Focusable="False"/>
+        </Border>
+        <ControlTemplate.Triggers>
+          <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="InputFrame" Property="BorderBrush" Value="{StaticResource AccentBrush}"/></Trigger>
+          <Trigger Property="IsEnabled" Value="False"><Setter TargetName="InputFrame" Property="Background" Value="{StaticResource DisabledFillBrush}"/></Trigger>
+        </ControlTemplate.Triggers>
+      </ControlTemplate></Setter.Value></Setter>
+    </Style>
+    <SolidColorBrush x:Key="ScrollThumbBrush" Color="#7C88A0"/>
+    <Style x:Key="ScrollPageArea" TargetType="RepeatButton">
+      <Setter Property="Focusable" Value="False"/>
+      <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="RepeatButton"><Border Background="Transparent"/></ControlTemplate></Setter.Value></Setter>
+    </Style>
+    <Style TargetType="ScrollBar">
+      <Setter Property="Width" Value="13"/><Setter Property="Cursor" Value="Arrow"/>
+      <Setter Property="Foreground" Value="{DynamicResource ScrollThumbBrush}"/>
+      <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ScrollBar">
+        <Grid Background="Transparent">
+          <Track x:Name="PART_Track" IsDirectionReversed="True" Orientation="{TemplateBinding Orientation}">
+            <Track.DecreaseRepeatButton><RepeatButton x:Name="Decrease" Style="{StaticResource ScrollPageArea}" Command="{x:Static ScrollBar.PageUpCommand}"/></Track.DecreaseRepeatButton>
+            <Track.Thumb>
+              <Thumb x:Name="Handle" Focusable="False" MinHeight="18" Tag="{TemplateBinding Orientation}" Background="{TemplateBinding Foreground}">
+                <Thumb.Template><ControlTemplate TargetType="Thumb">
+                  <Grid Background="Transparent">
+                    <Border x:Name="VerticalGrip" Width="3" Margin="0,2" CornerRadius="3" Background="{TemplateBinding Background}"/>
+                    <Border x:Name="HorizontalGrip" Height="3" Margin="2,0" CornerRadius="3" Background="{TemplateBinding Background}" Visibility="Collapsed"/>
+                  </Grid>
+                  <ControlTemplate.Triggers>
+                    <Trigger Property="Tag" Value="{x:Static Orientation.Horizontal}">
+                      <Setter TargetName="VerticalGrip" Property="Visibility" Value="Collapsed"/>
+                      <Setter TargetName="HorizontalGrip" Property="Visibility" Value="Visible"/>
+                    </Trigger>
+                    <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=ScrollBar}}" Value="True">
+                      <Setter TargetName="VerticalGrip" Property="Width" Value="5"/><Setter TargetName="HorizontalGrip" Property="Height" Value="5"/>
+                    </DataTrigger>
+                    <Trigger Property="IsDragging" Value="True">
+                      <Setter TargetName="VerticalGrip" Property="Width" Value="5"/><Setter TargetName="HorizontalGrip" Property="Height" Value="5"/>
+                    </Trigger>
+                  </ControlTemplate.Triggers>
+                </ControlTemplate></Thumb.Template>
+              </Thumb>
+            </Track.Thumb>
+            <Track.IncreaseRepeatButton><RepeatButton x:Name="Increase" Style="{StaticResource ScrollPageArea}" Command="{x:Static ScrollBar.PageDownCommand}"/></Track.IncreaseRepeatButton>
+          </Track>
+        </Grid>
+        <ControlTemplate.Triggers>
+          <Trigger Property="Orientation" Value="Horizontal">
+            <Setter TargetName="PART_Track" Property="IsDirectionReversed" Value="False"/>
+            <Setter TargetName="Decrease" Property="Command" Value="{x:Static ScrollBar.PageLeftCommand}"/>
+            <Setter TargetName="Increase" Property="Command" Value="{x:Static ScrollBar.PageRightCommand}"/>
+            <Setter TargetName="Handle" Property="MinHeight" Value="0"/><Setter TargetName="Handle" Property="MinWidth" Value="18"/>
+          </Trigger>
+          <Trigger Property="IsEnabled" Value="False"><Setter TargetName="Handle" Property="Opacity" Value=".5"/></Trigger>
+        </ControlTemplate.Triggers>
+      </ControlTemplate></Setter.Value></Setter>
+      <Style.Triggers><Trigger Property="Orientation" Value="Horizontal">
+        <Setter Property="Width" Value="Auto"/><Setter Property="Height" Value="13"/>
+      </Trigger></Style.Triggers>
+    </Style>
+    <Style TargetType="ComboBox">
+      <Setter Property="Background" Value="{StaticResource SurfaceBrush}"/><Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+      <Setter Property="BorderBrush" Value="{StaticResource FieldLineBrush}"/><Setter Property="MinHeight" Value="40"/>
+      <Setter Property="MaxDropDownHeight" Value="335"/>
+      <Setter Property="BorderThickness" Value="1"/><Setter Property="HorizontalContentAlignment" Value="Left"/>
+      <Setter Property="Padding" Value="9,6"/><Setter Property="VerticalContentAlignment" Value="Center"/>
+      <Setter Property="FocusVisualStyle" Value="{StaticResource FocusRing}"/>
+      <Style.Triggers>
+        <Trigger Property="IsEditable" Value="False"><Setter Property="Template"><Setter.Value>
+          <ControlTemplate TargetType="ComboBox">
+            <Grid>
+              <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="37"/></Grid.ColumnDefinitions>
+              <Border x:Name="Field" Grid.ColumnSpan="2" Background="{TemplateBinding Background}" CornerRadius="8"
+                      BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"/>
+              <Border Padding="{TemplateBinding Padding}" Margin="2,0,0,0" ClipToBounds="True">
+                <ContentPresenter IsHitTestVisible="False"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}">
+                  <ContentPresenter.Resources><Style TargetType="TextBlock"><Setter Property="TextTrimming" Value="CharacterEllipsis"/></Style></ContentPresenter.Resources>
+                </ContentPresenter>
+              </Border>
+              <Border x:Name="Indicator" Grid.Column="1" Width="26" Height="26" HorizontalAlignment="Left" VerticalAlignment="Center"
+                      Margin="3,0,0,0" CornerRadius="6" Background="{StaticResource CanvasBrush}" IsHitTestVisible="False">
+                <Path x:Name="Arrow" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 1,1 L 5.5,5.5 L 10,1"
+                      Stroke="{StaticResource MutedBrush}" StrokeThickness="1.6" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+              </Border>
+              <ToggleButton Grid.ColumnSpan="2" Focusable="False" ClickMode="Press" Cursor="Hand"
+                            IsChecked="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
+                <ToggleButton.Template><ControlTemplate TargetType="ToggleButton"><Border Background="Transparent"/></ControlTemplate></ToggleButton.Template>
+              </ToggleButton>
+              <Popup x:Name="PART_Popup" Placement="Bottom" HorizontalOffset="-7" Focusable="False" AllowsTransparency="True"
+                     PlacementTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}" IsOpen="{TemplateBinding IsDropDownOpen}">
+                <Grid Margin="7,5,7,9" MinWidth="{TemplateBinding ActualWidth}" MaxWidth="475" MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                  <Border Background="{StaticResource SurfaceBrush}" CornerRadius="10" IsHitTestVisible="False">
+                    <Border.Effect><DropShadowEffect Color="#172139" ShadowDepth="2" BlurRadius="8" Opacity=".20"/></Border.Effect>
+                  </Border>
+                  <Border Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource AccentLineBrush}" BorderThickness="1" CornerRadius="10" Padding="5">
+                    <ScrollViewer x:Name="Options" CanContentScroll="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                      <ItemsPresenter x:Name="ItemsPresenter" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                    </ScrollViewer>
+                  </Border>
+                </Grid>
+              </Popup>
+            </Grid>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Field" Property="BorderBrush" Value="{StaticResource AccentBrush}"/></Trigger>
+              <Trigger Property="IsKeyboardFocusWithin" Value="True"><Setter TargetName="Field" Property="BorderBrush" Value="{StaticResource AccentBrush}"/></Trigger>
+              <Trigger Property="IsDropDownOpen" Value="True">
+                <Setter TargetName="Field" Property="BorderBrush" Value="{StaticResource AccentBrush}"/>
+                <Setter TargetName="Indicator" Property="Background" Value="{StaticResource AccentSoftBrush}"/>
+                <Setter TargetName="Arrow" Property="Data" Value="M 1,5.5 L 5.5,1 L 10,5.5"/>
+                <Setter TargetName="Arrow" Property="Stroke" Value="{StaticResource AccentBrush}"/>
+              </Trigger>
+              <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="Field" Property="Background" Value="{StaticResource DisabledFillBrush}"/>
+                <Setter TargetName="Field" Property="BorderBrush" Value="{StaticResource LineBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource DisabledTextBrush}"/>
+              </Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value></Setter></Trigger>
+      </Style.Triggers>
+    </Style>
+    <Style TargetType="ComboBoxItem">
+      <Setter Property="MinHeight" Value="34"/><Setter Property="Padding" Value="10,5"/><Setter Property="Margin" Value="0,1"/>
+      <Setter Property="Foreground" Value="{StaticResource TextBrush}"/><Setter Property="Cursor" Value="Hand"/>
+      <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ComboBoxItem">
+        <Border x:Name="Item" CornerRadius="6" Padding="{TemplateBinding Padding}" Background="Transparent" BorderThickness="1" BorderBrush="Transparent">
+          <Grid>
+            <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="22"/></Grid.ColumnDefinitions>
+            <ContentPresenter ContentSource="Content" VerticalAlignment="Center">
+              <ContentPresenter.Resources><Style TargetType="TextBlock"><Setter Property="TextWrapping" Value="Wrap"/></Style></ContentPresenter.Resources>
+            </ContentPresenter>
+            <Path x:Name="SelectedMark" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Visibility="Hidden"
+                  Data="M 1,6 L 4.5,9.5 L 12,2" Stroke="{StaticResource AccentBrush}" StrokeThickness="1.9" StrokeLineJoin="Round"
+                  StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+          </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+          <Trigger Property="IsHighlighted" Value="True">
+            <Setter TargetName="Item" Property="Background" Value="{StaticResource CanvasBrush}"/>
+            <Setter TargetName="Item" Property="BorderBrush" Value="{StaticResource LineBrush}"/>
+          </Trigger>
+          <Trigger Property="IsSelected" Value="True">
+            <Setter TargetName="Item" Property="Background" Value="{StaticResource AccentSoftBrush}"/>
+            <Setter TargetName="SelectedMark" Property="Visibility" Value="Visible"/>
+            <Setter Property="Foreground" Value="{StaticResource AccentPressedBrush}"/>
+          </Trigger>
+          <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="Item" Property="BorderBrush" Value="{StaticResource AccentBrush}"/></Trigger>
+          <Trigger Property="IsEnabled" Value="False"><Setter Property="Foreground" Value="{StaticResource DisabledTextBrush}"/></Trigger>
+        </ControlTemplate.Triggers>
+      </ControlTemplate></Setter.Value></Setter>
+    </Style>
+    <Style TargetType="Label"><Setter Property="Foreground" Value="{StaticResource TextBrush}"/></Style>
+    <Style TargetType="ListBox">
+      <Setter Property="Background" Value="{StaticResource SurfaceBrush}"/><Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+      <Setter Property="BorderBrush" Value="{StaticResource LineBrush}"/><Setter Property="Padding" Value="3"/>
+    </Style>
+    <Style TargetType="ListBoxItem">
+      <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType=ListBox}}"/>
+      <Setter Property="FocusVisualStyle" Value="{StaticResource FocusRing}"/>
+    </Style>
+    <Style TargetType="DataGrid">
+      <Setter Property="Background" Value="{StaticResource SurfaceBrush}"/><Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+      <Setter Property="RowBackground" Value="{StaticResource SurfaceBrush}"/><Setter Property="AlternatingRowBackground" Value="{StaticResource CanvasBrush}"/>
+      <Setter Property="GridLinesVisibility" Value="Horizontal"/><Setter Property="HorizontalGridLinesBrush" Value="{StaticResource LineBrush}"/>
+      <Setter Property="BorderBrush" Value="{StaticResource LineBrush}"/>
+    </Style>
+    <Style TargetType="DataGridColumnHeader">
+      <Setter Property="Background" Value="{StaticResource CanvasBrush}"/><Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+      <Setter Property="FontWeight" Value="SemiBold"/><Setter Property="Padding" Value="7,5"/>
+      <Setter Property="BorderBrush" Value="{StaticResource LineBrush}"/><Setter Property="BorderThickness" Value="0,0,1,1"/>
+    </Style>
+    <Style x:Key="BatchList" TargetType="ListBox" BasedOn="{StaticResource {x:Type ListBox}}">
+      <Setter Property="MaxHeight" Value="440"/><Setter Property="Margin" Value="0,12,0,0"/>
+      <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+      <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+      <Setter Property="VirtualizingStackPanel.VirtualizationMode" Value="Recycling"/>
+      <Setter Property="AutomationProperties.Name" Value="Suivi des fichiers"/>
+      <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ListBox">
+        <Border Style="{StaticResource ConverterPane}" Padding="16,13">
+          <Grid>
+            <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+            <DockPanel Margin="0,0,0,8">
+              <TextBlock DockPanel.Dock="Right" Margin="8,0,0,0" VerticalAlignment="Center" FontSize="13" Foreground="{StaticResource MutedBrush}"
+                         Text="{Binding Items.Count, RelativeSource={RelativeSource TemplatedParent}, StringFormat={}{0} fichiers}"/>
+              <TextBlock Text="Suivi des fichiers" FontSize="18" FontWeight="SemiBold"/>
+            </DockPanel>
+            <ScrollViewer x:Name="PART_ScrollViewer" Grid.Row="1" Focusable="False" CanContentScroll="True"
+                          VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+              <ItemsPresenter/>
+            </ScrollViewer>
+          </Grid>
+        </Border>
+      </ControlTemplate></Setter.Value></Setter>
+      <Setter Property="ItemContainerStyle"><Setter.Value><Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/><Setter Property="AutomationProperties.Name" Value="{Binding Name}"/>
+        <Setter Property="AutomationProperties.ItemStatus" Value="{Binding Status}"/>
+        <Setter Property="AutomationProperties.HelpText" Value="{Binding Details}"/>
+        <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ListBoxItem">
+          <Border x:Name="Row" Background="Transparent" BorderBrush="{StaticResource LineBrush}" BorderThickness="0,1,0,0" Padding="4,10,4,9">
+            <ContentPresenter/>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Row" Property="Background" Value="{StaticResource CanvasBrush}"/></Trigger>
+            <Trigger Property="IsSelected" Value="True"><Setter TargetName="Row" Property="Background" Value="{StaticResource AccentSoftBrush}"/></Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate></Setter.Value></Setter>
+      </Style></Setter.Value></Setter>
+      <Setter Property="ItemTemplate"><Setter.Value><DataTemplate>
+        <Grid ToolTip="{Binding Source}">
+          <Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+          <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+          <Border Grid.RowSpan="2" Width="44" Height="34" Margin="0,1,10,0" VerticalAlignment="Top" CornerRadius="7"
+                  Background="{StaticResource CanvasBrush}" BorderBrush="{StaticResource LineBrush}" BorderThickness="1">
+            <TextBlock Text="{Binding FileType}" TextAlignment="Center" TextTrimming="CharacterEllipsis" VerticalAlignment="Center"
+                       Margin="2,0" FontSize="11" FontWeight="SemiBold" Foreground="{StaticResource MutedBrush}"/>
+          </Border>
+          <TextBlock Grid.Column="1" Text="{Binding Name}" TextWrapping="Wrap" FontWeight="SemiBold" VerticalAlignment="Center" Margin="0,0,8,0"/>
+          <Border x:Name="StateBadge" Grid.Column="2" Background="{StaticResource CanvasBrush}" Padding="7,3" CornerRadius="5"
+                  MaxWidth="133" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <DockPanel>
+              <TextBlock x:Name="StateGlyph" Text="&#xE823;" Style="{StaticResource Glyph}" FontSize="12" Margin="0,0,4,0" Foreground="{StaticResource MutedBrush}"/>
+              <TextBlock x:Name="StateText" Text="{Binding Status}" TextWrapping="Wrap" FontWeight="SemiBold" FontSize="12" Foreground="{StaticResource MutedBrush}"/>
+            </DockPanel>
+          </Border>
+          <DockPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,5,0,0">
+            <TextBlock DockPanel.Dock="Right" Text="{Binding ProgressLabel}" FontSize="12" Foreground="{StaticResource MutedBrush}" Margin="8,0,0,0"/>
+            <ProgressBar x:Name="FileProgress" Height="4" Minimum="0" Maximum="100" Value="{Binding Progress, Mode=OneWay}"
+                         IsIndeterminate="{Binding IsIndeterminate}" Foreground="{StaticResource AccentBrush}" Background="{StaticResource LineBrush}"
+                         BorderThickness="0" VerticalAlignment="Center" AutomationProperties.Name="{Binding Name}"/>
+          </DockPanel>
+          <TextBlock Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Details}" Style="{StaticResource ConverterMessage}" Margin="0,4,0,0"/>
+        </Grid>
+        <DataTemplate.Triggers>
+          <DataTrigger Binding="{Binding State}" Value="Running">
+            <Setter TargetName="StateBadge" Property="Background" Value="{StaticResource AccentSoftBrush}"/>
+            <Setter TargetName="StateGlyph" Property="Text" Value="&#xE895;"/>
+            <Setter TargetName="StateGlyph" Property="Foreground" Value="{StaticResource AccentBrush}"/>
+            <Setter TargetName="StateText" Property="Foreground" Value="{StaticResource AccentPressedBrush}"/>
+          </DataTrigger>
+          <DataTrigger Binding="{Binding State}" Value="Saved">
+            <Setter TargetName="StateBadge" Property="Background" Value="{StaticResource SuccessSoftBrush}"/>
+            <Setter TargetName="StateGlyph" Property="Text" Value="&#xE73E;"/>
+            <Setter TargetName="StateGlyph" Property="Foreground" Value="{StaticResource SuccessBrush}"/>
+            <Setter TargetName="StateText" Property="Foreground" Value="{StaticResource SuccessBrush}"/>
+            <Setter TargetName="FileProgress" Property="Foreground" Value="{StaticResource SuccessBrush}"/>
+          </DataTrigger>
+          <DataTrigger Binding="{Binding State}" Value="Failed">
+            <Setter TargetName="StateBadge" Property="Background" Value="{StaticResource WarningSoftBrush}"/>
+            <Setter TargetName="StateGlyph" Property="Text" Value="&#xE7BA;"/>
+            <Setter TargetName="StateGlyph" Property="Foreground" Value="{StaticResource WarningBrush}"/>
+            <Setter TargetName="StateText" Property="Foreground" Value="{StaticResource WarningBrush}"/>
+            <Setter TargetName="FileProgress" Property="Foreground" Value="{StaticResource WarningBrush}"/>
+          </DataTrigger>
+          <DataTrigger Binding="{Binding State}" Value="Canceled"><Setter TargetName="StateGlyph" Property="Text" Value="&#xE711;"/><Setter TargetName="FileProgress" Property="Foreground" Value="{StaticResource MutedBrush}"/></DataTrigger>
+          <DataTrigger Binding="{Binding State}" Value="Skipped"><Setter TargetName="StateGlyph" Property="Text" Value="&#xE8AD;"/></DataTrigger>
+        </DataTemplate.Triggers>
+      </DataTemplate></Setter.Value></Setter>
+    </Style>
+    <DataTemplate x:Key="RouterImportForm">
+      <Grid Margin="20">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+          <RowDefinition Height="*"/><RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel>
+          <TextBlock Text="Appareils connectés à la box" FontSize="23" FontWeight="SemiBold" TextWrapping="Wrap"/>
+          <TextBlock Text="Ouvrez la gestion de votre box et affichez ses clients connectés. Vous pourrez vérifier les lignes reconnues avant de les importer."
+                     Margin="0,5,0,9" TextWrapping="Wrap"/>
+          <Button x:Name="ReadBox" Style="{StaticResource PrimaryAction}" Content="Ouvrir l’interface de la box…"
+                  HorizontalAlignment="Left"/>
+        </StackPanel>
+        <Expander x:Name="PasteBox" Grid.Row="1" Header="Utiliser une liste copiée" Margin="0,10,0,0">
+          <StackPanel Margin="0,5,0,0">
+            <Label Target="{Binding ElementName=BoxText}" Content="Collez les appareils avec les en-têtes de colonnes si possible." Padding="0,0,0,4"/>
+            <TextBox x:Name="BoxText" AutomationProperties.Name="Liste copiée depuis la box" AcceptsReturn="True" AcceptsTab="False"
+                     Height="66" MaxLength="1048576" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
+            <Button x:Name="PreviewBoxText" Content="Afficher l’aperçu" Style="{StaticResource Action}"
+                    HorizontalAlignment="Left" Padding="10,5" Margin="0,5,0,0"/>
+          </StackPanel>
+        </Expander>
+        <TextBlock x:Name="BoxMessage" Grid.Row="2" TextWrapping="Wrap" Margin="0,12,0,5"/>
+        <DataGrid x:Name="BoxPreview" Grid.Row="3" AutomationProperties.Name="Aperçu des clients de la box"
+                  AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" HeadersVisibility="Column" RowHeight="29"/>
+        <WrapPanel Grid.Row="4" HorizontalAlignment="Right" Margin="0,12,0,0">
+          <Button x:Name="CancelBoxImport" Style="{StaticResource Action}" IsCancel="True" Content="Annuler" Margin="0,0,8,0"/>
+          <Button x:Name="AcceptBoxImport" Style="{StaticResource PrimaryAction}" Content="Importer la liste" IsEnabled="False"/>
+        </WrapPanel>
+      </Grid>
+    </DataTemplate>
+  </Window.Resources>
+  <Grid Background="{StaticResource CanvasBrush}">
+    <Grid.ColumnDefinitions><ColumnDefinition x:Name="RailWidth" Width="222"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+    <Button x:Name="MenuShade" Grid.ColumnSpan="2" Panel.ZIndex="1" Visibility="Collapsed" Focusable="False"
+            Background="#660E172C" BorderThickness="0" AutomationProperties.Name="Fermer le menu">
+      <Button.Template><ControlTemplate TargetType="Button"><Border Background="{TemplateBinding Background}"/></ControlTemplate></Button.Template>
+    </Button>
+    <Border x:Name="Sidebar" Panel.ZIndex="2" Width="222" HorizontalAlignment="Left"
+            Background="{StaticResource InkBrush}" Padding="14,20,14,14" KeyboardNavigation.TabNavigation="Continue">
+      <Border.Resources>
+        <SolidColorBrush x:Key="ScrollThumbBrush" Color="#62708B"/>
+        <Style x:Key="FamilyToggle" TargetType="ToggleButton">
+          <Setter Property="Foreground" Value="#DCE3F3"/><Setter Property="Background" Value="Transparent"/>
+          <Setter Property="Cursor" Value="Hand"/><Setter Property="Padding" Value="10,10"/>
+          <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ToggleButton">
+            <Border x:Name="Frame" Background="{TemplateBinding Background}" CornerRadius="7" BorderThickness="2" BorderBrush="Transparent" Padding="{TemplateBinding Padding}">
+              <DockPanel>
+                <TextBlock x:Name="Chevron" DockPanel.Dock="Right" FontFamily="Segoe MDL2 Assets" Text="&#xE76C;" FontSize="11" VerticalAlignment="Center"/>
+                <ContentPresenter VerticalAlignment="Center"/>
+              </DockPanel>
+            </Border>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsChecked" Value="True"><Setter TargetName="Chevron" Property="Text" Value="&#xE70D;"/></Trigger>
+              <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Frame" Property="Background" Value="{StaticResource InkHoverBrush}"/></Trigger>
+              <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="Frame" Property="BorderBrush" Value="#A9BCFF"/></Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate></Setter.Value></Setter>
+        </Style>
+      </Border.Resources>
+      <Grid>
+        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+        <DockPanel Margin="4,0,0,16" LastChildFill="True">
+          <Button x:Name="MenuClose" DockPanel.Dock="Right" Style="{StaticResource Nav}" Content="&#xE8BB;" FontFamily="Segoe MDL2 Assets"
+                  Width="34" Height="34" Padding="6" HorizontalContentAlignment="Center" AutomationProperties.Name="Fermer le menu" ToolTip="Fermer le menu (Échap)" Visibility="Collapsed"/>
+          <Border Width="34" Height="34" CornerRadius="10" Background="{StaticResource AccentBrush}" Margin="0,0,10,0">
+            <Path Width="23" Height="17" Stretch="Uniform" Stroke="White" StrokeThickness="2.4" StrokeLineJoin="Round"
+                  StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M 1,11 L 6,11 9,4 13,17 16,9 22,9"/>
+          </Border>
+          <TextBlock x:Name="Brand" Text="Toolbox" FontSize="21" FontWeight="SemiBold" Foreground="White" VerticalAlignment="Center"/>
+        </DockPanel>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Focusable="False">
+          <StackPanel x:Name="SidebarLinks"/>
+        </ScrollViewer>
+        <StackPanel Grid.Row="2">
+          <Border Height="1" Background="#354057" Margin="5,12,5,9"/>
+          <StackPanel x:Name="SidebarFooter"/>
+          <StackPanel Orientation="Horizontal" Margin="11,12,0,2">
+            <TextBlock Text="&#xE7F4;" Style="{StaticResource Glyph}" FontSize="14" Foreground="#A4B1CA"/>
+            <TextBlock x:Name="OsLabel" Foreground="#B8C3DA" FontSize="12" Margin="8,0,0,0" Text="Windows"/>
+          </StackPanel>
+        </StackPanel>
+      </Grid>
+    </Border>
+    <Grid x:Name="Workspace" Grid.Column="1">
+      <Grid.RowDefinitions><RowDefinition Height="56"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+      <Border x:Name="Topbar" Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource LineBrush}" BorderThickness="0,0,0,1" Padding="24,0">
+        <DockPanel VerticalAlignment="Center">
+          <Button x:Name="MenuToggle" DockPanel.Dock="Left" Style="{StaticResource Action}" Padding="8,5" Visibility="Collapsed"
+                  ToolTip="Ouvrir le menu" AutomationProperties.Name="Ouvrir le menu" Margin="0,0,8,0">
+            <StackPanel Orientation="Horizontal"><TextBlock Style="{StaticResource Glyph}" Text="&#xE700;" FontSize="15"/><TextBlock Text="Menu" Margin="6,0,0,0"/></StackPanel>
+          </Button>
+          <Button x:Name="BackNav" DockPanel.Dock="Left" Padding="6" Style="{StaticResource Action}" BorderThickness="0" Width="34"
+                  ToolTip="Retour (Alt+Gauche)" AutomationProperties.Name="Retour" AutomationProperties.AcceleratorKey="Alt+Gauche">
+            <TextBlock Style="{StaticResource Glyph}" Text="&#xE72B;" FontSize="16"/>
+          </Button>
+          <StackPanel x:Name="CatalogAccess" DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center"
+                      ToolTip="Droits actuels de Toolbox">
+            <TextBlock Style="{StaticResource Glyph}" Text="&#xEA18;" FontSize="14" Foreground="{StaticResource MutedBrush}"/>
+            <TextBlock Text="{Binding Text, ElementName=AccessLevel}" Foreground="{StaticResource MutedBrush}" FontSize="12" Margin="6,0,0,0"/>
+          </StackPanel>
+          <Button x:Name="SearchNav" DockPanel.Dock="Right" Style="{StaticResource Action}" Padding="10,5" Margin="6,0,0,0"
+                  ToolTip="Rechercher un outil (Ctrl+K)" AutomationProperties.Name="Rechercher un outil" AutomationProperties.AcceleratorKey="Ctrl+K">
+            <StackPanel Orientation="Horizontal"><TextBlock Style="{StaticResource Glyph}" Text="&#xE721;" FontSize="14"/>
+              <TextBlock x:Name="SearchLabel" Text="Rechercher" Margin="7,0,0,0"/><TextBlock x:Name="SearchKeys" Text="Ctrl+K" Foreground="{StaticResource MutedBrush}" FontSize="12" Margin="12,1,0,0"/>
+            </StackPanel>
+          </Button>
+          <Button x:Name="CrumbHome" DockPanel.Dock="Left" Style="{StaticResource Action}" Padding="6,4" BorderThickness="0"
+                  ToolTip="Catalogue d’outils" AutomationProperties.Name="Ouvrir le catalogue">
+            <TextBlock Text="Catalogue" FontWeight="SemiBold"/>
+          </Button>
+          <DockPanel x:Name="CrumbTrail" Margin="2,0,2,0" VerticalAlignment="Center">
+            <TextBlock Text="›" Foreground="{StaticResource MutedBrush}" Margin="0,0,7,0"/>
+            <TextBlock x:Name="Crumb" Foreground="{StaticResource MutedBrush}" FontSize="13" TextTrimming="CharacterEllipsis"/>
+          </DockPanel>
+        </DockPanel>
+      </Border>
+      <ScrollViewer x:Name="Scroll" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
+                    CanContentScroll="False" Focusable="False">
+        <StackPanel x:Name="Body" Margin="28,23,28,26" MaxWidth="1280">
+          <TextBlock x:Name="PageTitle" Foreground="{StaticResource TextBrush}" FontSize="32" FontWeight="SemiBold" TextWrapping="Wrap" Focusable="True" KeyboardNavigation.IsTabStop="False"/>
+          <TextBlock x:Name="PageIntro" Margin="0,5,0,20" TextWrapping="Wrap" FontSize="15" Foreground="{StaticResource MutedBrush}"/>
+          <StackPanel x:Name="DiagnosticPage">
+            <Border x:Name="Hero" CornerRadius="12" Background="{StaticResource InkBrush}" Padding="23,21" ClipToBounds="True">
+              <Grid>
+                <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition x:Name="ArtWidth" Width="215"/></Grid.ColumnDefinitions>
+                <StackPanel VerticalAlignment="Center" Margin="0,0,5,0">
+                  <TextBlock Text="Vérification du matériel" FontSize="23" FontWeight="SemiBold" Foreground="{StaticResource SurfaceBrush}" TextWrapping="Wrap"/>
+                  <TextBlock Margin="0,6,0,13" Text="Vérifiez l’état des appareils connectés à votre PC et de ses composants internes."
+                             Foreground="{StaticResource InkMutedBrush}" TextWrapping="Wrap" LineHeight="20" FontSize="14" MaxWidth="440" HorizontalAlignment="Left"/>
+                  <Button x:Name="ScanButton" Padding="14,9"
+                          HorizontalAlignment="Left" Style="{StaticResource PrimaryAction}" AutomationProperties.Name="Lancer l’analyse">
+                    <StackPanel Orientation="Horizontal"><TextBlock Text="&#xE9D9;" Style="{StaticResource Glyph}" FontSize="15"/><TextBlock x:Name="ScanLabel" Margin="8,0,0,0" Text="Lancer l’analyse"/></StackPanel>
+                  </Button>
+                </StackPanel>
+                <Viewbox x:Name="Art" Grid.Column="1" Stretch="Uniform" MaxHeight="152" IsHitTestVisible="False">
+                  <Canvas Width="243" Height="154">
+                    <!-- Technical drawing of a monitor, probe signal and cabled mouse. -->
+                    <Path Stroke="#304366" StrokeThickness=".9" Data="M4,118 L91,68 M9,140 L101,87 M38,150 L132,95 M71,153 L164,100 M103,152 L198,97 M139,153 L232,99 M3,108 L81,153 M25,99 L119,153 M50,89 L160,152 M80,84 L200,152 M112,81 L233,146"/>
+                    <Path Fill="#0C1427" Data="M43,107 L115,74 205,110 128,149 Z"/>
+                    <Path Fill="#91A5C9" Stroke="#C7D8F6" StrokeThickness="1.15" StrokeLineJoin="Round" Data="M82,112 L107,102 142,116 117,127 Z"/>
+                    <Path Fill="#7086B4" Stroke="#C7D8F6" StrokeThickness="1" Data="M103,91 L117,97 117,118 103,112 Z"/>
+                    <Path Fill="#ACC2EA" Stroke="#D5E3FF" StrokeThickness="1.3" StrokeLineJoin="Round" Data="M57,25 Q57,21 61,20 L68,17 Q70,16 74,18 L175,55 Q179,57 179,61 L179,124 172,129 57,86 Z"/>
+                    <Path Fill="#657EAB" Stroke="#C9DBFF" StrokeThickness="1" StrokeLineJoin="Round" Data="M172,65 L179,61 179,124 172,129 Z"/>
+                    <Path Fill="#34496F" Stroke="#E2EAFF" StrokeThickness="1.5" StrokeLineJoin="Round" Data="M57,27 Q57,23 61,24 L168,62 Q172,64 172,68 L172,125 Q172,129 168,127 L61,89 Q57,87 57,83 Z"/>
+                    <Path Fill="#192B51" Stroke="#829DC9" StrokeThickness="1" Data="M63,32 L166,69 166,117 63,80 Z"/>
+                    <Path Stroke="#2F4770" StrokeThickness=".9" Data="M65,44 L164,80 M65,56 L164,92 M65,68 L164,104 M82,40 L82,85 M102,47 L102,92 M122,54 L122,99 M142,61 L142,106"/>
+                    <Path Stroke="#A3BCFF" StrokeThickness="3" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M72,61 L91,68 98,59 107,86 119,57 128,78 136,74 157,82"/>
+                    <Path Stroke="#D8E4FF" StrokeThickness="1.5" Data="M107,100 L117,104"/>
+                    <Path Stroke="#8EACDA" StrokeThickness="1.5" Data="M175,116 C178,128 205,116 216,125 226,133 197,129 197,139"/>
+                    <Path Fill="#A7BFE9" Stroke="#E0E9FF" StrokeThickness="1" Data="M184,143 L190,138 Q195,135 200,138 L204,140 Q209,143 205,147 L199,151 Q196,153 192,151 L184,148 Q181,146 184,143 Z"/>
+                    <Path Stroke="#536DA6" StrokeThickness="1.1" Data="M198,139 L194,142"/>
+                    <Path Stroke="#9DB8FA" StrokeThickness="1.4" Data="M28,50 L34,50 M31,47 L31,53 M198,48 L206,48 M202,44 L202,52"/>
+                  </Canvas>
+                </Viewbox>
+              </Grid>
+            </Border>
+            <ProgressBar x:Name="Progress" Height="4" Foreground="{StaticResource AccentBrush}" Visibility="Collapsed" Margin="4,3"/>
+            <TextBlock x:Name="Notice" Visibility="Collapsed" Margin="0,13,0,0" Foreground="{StaticResource TextBrush}" FontWeight="SemiBold" TextWrapping="Wrap"/>
+            <DockPanel Margin="0,21,0,10" LastChildFill="False">
+              <TextBlock Text="Résultats de l’analyse" FontSize="21" FontWeight="SemiBold" DockPanel.Dock="Left"/>
+              <TextBlock x:Name="Stamp" Foreground="{StaticResource MutedBrush}" FontSize="12" VerticalAlignment="Center" DockPanel.Dock="Right"/>
+            </DockPanel>
+            <StackPanel x:Name="ShareBar" Visibility="Collapsed" Margin="0,0,0,10">
+              <Button x:Name="CopySummary" HorizontalAlignment="Left" Style="{StaticResource Action}" Content="Copier le résumé"
+                      ToolTip="Copier les résultats pour les coller dans un message"/>
+              <TextBlock x:Name="CopyFeedback" TextWrapping="Wrap" Foreground="{StaticResource TextBrush}">
+                <TextBlock.Style><Style TargetType="TextBlock">
+                  <Setter Property="Margin" Value="0,5,0,0"/>
+                  <Style.Triggers><Trigger Property="Text" Value=""><Setter Property="Visibility" Value="Collapsed"/></Trigger></Style.Triggers>
+                </Style></TextBlock.Style>
+              </TextBlock>
+            </StackPanel>
+            <Border x:Name="UsbGuide" Visibility="Collapsed" Style="{StaticResource Card}" Margin="0,0,0,10" Background="{StaticResource AccentSoftBrush}">
+              <StackPanel>
+                <TextBlock x:Name="UsbTitle" FontWeight="SemiBold" FontSize="18" TextWrapping="Wrap"/>
+                <TextBlock x:Name="UsbLocation" Margin="0,4,0,0" TextWrapping="Wrap" Foreground="{StaticResource MutedBrush}"/>
+                <TextBlock x:Name="UsbInstruction" Margin="0,8,0,0" TextWrapping="Wrap" FontSize="15"/>
+                <WrapPanel Margin="0,10,0,0">
+                  <Button x:Name="UsbCheck" Style="{StaticResource PrimaryAction}" Margin="0,0,7,5"/>
+                  <Button x:Name="UsbClose" Style="{StaticResource Action}" Content="Quitter le test" Margin="0,0,0,5"/>
+                </WrapPanel>
+              </StackPanel>
+            </Border>
+            <StackPanel x:Name="Results"/>
+            <Expander x:Name="MissingHelp" Margin="0,14,0,0" Foreground="{StaticResource TextBrush}" Header="Un appareil n’apparaît pas dans l’analyse ?">
+              <StackPanel Margin="22,8,8,2">
+                <TextBlock Text="Vérifiez son alimentation et son branchement, ou son association Bluetooth. Pour un accessoire USB, ouvrez la carte avant de le brancher et consultez l’activité des branchements pour voir si Windows détecte son arrivée." TextWrapping="Wrap" Foreground="{StaticResource MutedBrush}"/>
+                <Button x:Name="ObserveMissingUsb" Content="Observer les branchements USB" Style="{StaticResource Action}" HorizontalAlignment="Left" Margin="0,8,0,0"/>
+              </StackPanel>
+            </Expander>
+          </StackPanel>
+          <StackPanel x:Name="MapPage" Visibility="Collapsed">
+            <Border CornerRadius="12" Padding="16,13" Margin="0,0,0,14">
+              <Border.Background><LinearGradientBrush StartPoint="0,0" EndPoint="1,0.4">
+                <GradientStop Color="#192648" Offset="0"/><GradientStop Color="#2F488B" Offset="1"/>
+              </LinearGradientBrush></Border.Background>
+              <DockPanel>
+                <Button x:Name="MapRefresh" DockPanel.Dock="Right" Style="{StaticResource Action}" VerticalAlignment="Center" Padding="10,7"
+                        AutomationProperties.Name="Actualiser la carte" ToolTip="Actualiser la carte" Margin="12,0,0,0">
+                  <StackPanel Orientation="Horizontal"><TextBlock Style="{StaticResource Glyph}" FontSize="15" Text="&#xE72C;"/>
+                    <TextBlock x:Name="MapRefreshLabel" Margin="7,0,0,0" Text="Actualiser la carte"/>
+                  </StackPanel>
+                </Button>
+                <Border x:Name="MapOverviewIcon" Width="46" Height="46" CornerRadius="10" Background="#273D70" BorderThickness="1" BorderBrush="#6480BB"
+                        VerticalAlignment="Center" Margin="0,0,12,0">
+                  <Canvas Width="29" Height="29" IsHitTestVisible="False">
+                    <Path Data="M7,14.5 H13 V5.5 H21 M13,14.5 H21 M13,14.5 V23.5 H21" Stroke="#BDD0FF" StrokeThickness="1.5"/>
+                    <Rectangle Width="8" Height="8" Canvas.Top="10.5" RadiusX="2" RadiusY="2" Fill="#EDF3FF"/>
+                    <Path Data="M21,3 H27 V8 H21 Z M21,12 H27 V17 H21 Z M21,21 H27 V26 H21 Z" Fill="#9EB9FF"/>
+                  </Canvas>
+                </Border>
+                <StackPanel VerticalAlignment="Center">
+                  <TextBlock x:Name="MapStamp" FontSize="12" Foreground="#DBE5FF">
+                    <TextBlock.Style><Style TargetType="TextBlock"><Style.Triggers>
+                      <Trigger Property="Text" Value=""><Setter Property="Visibility" Value="Collapsed"/></Trigger>
+                    </Style.Triggers></Style></TextBlock.Style>
+                  </TextBlock>
+                  <TextBlock x:Name="MapStatus" FontSize="17" FontWeight="SemiBold" Foreground="White" TextWrapping="Wrap"/>
+                </StackPanel>
+              </DockPanel>
+            </Border>
+            <Grid x:Name="MapContent" Visibility="Collapsed">
+              <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition x:Name="MapDetailWidth" Width="0.73*"/></Grid.ColumnDefinitions>
+              <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+              <Border Style="{StaticResource Card}" Padding="0" VerticalAlignment="Top">
+                <StackPanel>
+                  <Border Padding="16,12" BorderThickness="0,0,0,1" BorderBrush="{StaticResource LineBrush}">
+                    <TextBlock Text="Arborescence" FontSize="17" FontWeight="SemiBold"/>
+                  </Border>
+                  <TreeView x:Name="MapTree" BorderThickness="0" Padding="0" Margin="5,6" MaxHeight="470" Background="Transparent"
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                            AutomationProperties.Name="Arborescence des branchements USB">
+                    <TreeView.Resources>
+                      <Style TargetType="TreeViewItem">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="TreeViewItem">
+                          <StackPanel>
+                            <Border x:Name="RowFrame" Background="Transparent" BorderBrush="Transparent" BorderThickness="1"
+                                    CornerRadius="7" Margin="1" Padding="1,4,6,4">
+                              <DockPanel>
+                                <ToggleButton x:Name="BranchToggle" Width="22" MinHeight="28" Focusable="False" ClickMode="Press"
+                                  IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                  AutomationProperties.Name="Développer ou réduire la branche">
+                                  <ToggleButton.Template><ControlTemplate TargetType="ToggleButton">
+                                    <Border Background="Transparent"><Path x:Name="Chevron" Width="5" Height="8" Stretch="Fill"
+                                      Data="M1,1 L5,5 L1,9" Stroke="{StaticResource MutedBrush}" StrokeThickness="1.4" StrokeLineJoin="Round"
+                                      RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                                    <ControlTemplate.Triggers><Trigger Property="IsChecked" Value="True">
+                                      <Setter TargetName="Chevron" Property="RenderTransform"><Setter.Value><RotateTransform Angle="90"/></Setter.Value></Setter>
+                                    </Trigger></ControlTemplate.Triggers>
+                                  </ControlTemplate></ToggleButton.Template>
+                                </ToggleButton>
+                                <ContentPresenter x:Name="PART_Header" ContentSource="Header" VerticalAlignment="Center"/>
+                              </DockPanel>
+                            </Border>
+                            <Border x:Name="Branch" BorderBrush="{StaticResource LineBrush}" BorderThickness="1,0,0,0" Margin="13,0,0,0" Padding="2,0,0,0">
+                              <ItemsPresenter/>
+                            </Border>
+                          </StackPanel>
+                          <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="False"><Setter TargetName="BranchToggle" Property="Visibility" Value="Hidden"/></Trigger>
+                            <Trigger Property="IsExpanded" Value="False"><Setter TargetName="Branch" Property="Visibility" Value="Collapsed"/></Trigger>
+                            <Trigger SourceName="RowFrame" Property="IsMouseOver" Value="True"><Setter TargetName="RowFrame" Property="Background" Value="{StaticResource CanvasBrush}"/></Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                              <Setter TargetName="RowFrame" Property="Background" Value="{StaticResource AccentSoftBrush}"/>
+                              <Setter TargetName="RowFrame" Property="BorderBrush" Value="{StaticResource AccentLineBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="RowFrame" Property="BorderBrush" Value="{StaticResource AccentBrush}"/></Trigger>
+                          </ControlTemplate.Triggers>
+                        </ControlTemplate></Setter.Value></Setter>
+                      </Style>
+                    </TreeView.Resources>
+                  </TreeView>
+                </StackPanel>
+              </Border>
+              <Border x:Name="MapDetail" Grid.Column="1" VerticalAlignment="Top" Margin="12,0,0,0" Style="{StaticResource Card}" Padding="16,14">
+                <StackPanel>
+                  <TextBlock x:Name="MapRole" Foreground="{StaticResource AccentHoverBrush}" FontWeight="SemiBold" FontSize="13"/>
+                  <TextBlock x:Name="MapName" TextWrapping="Wrap" FontWeight="SemiBold" FontSize="21" Margin="0,3,0,0"/>
+                  <Border x:Name="MapStateFrame" CornerRadius="7" Padding="10,8" Margin="0,12,0,0">
+                    <DockPanel><TextBlock x:Name="MapStateIcon" Style="{StaticResource Glyph}" FontSize="15" VerticalAlignment="Top" Margin="0,2,8,0"/>
+                      <TextBlock x:Name="MapState" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold"/>
+                    </DockPanel>
+                  </Border>
+                  <TextBlock Text="Chemin de branchement" FontWeight="SemiBold" Margin="0,16,0,5"/>
+                  <TextBlock x:Name="MapPath" TextWrapping="Wrap" Foreground="{StaticResource MutedBrush}"/>
+                  <TextBlock x:Name="MapConnections" TextWrapping="Wrap" Margin="0,10,0,0"/>
+                  <TextBlock x:Name="MapFunctions" TextWrapping="Wrap" Margin="0,10,0,0"/>
+                  <TextBlock x:Name="MapSerial" TextWrapping="Wrap" Foreground="{StaticResource TextBrush}" FontWeight="SemiBold" Margin="0,8,0,0"/>
+                  <StackPanel x:Name="MapGuidance" Margin="0,6,0,0"/>
+                </StackPanel>
+              </Border>
+            </Grid>
+            <TextBlock x:Name="CleanupNotice" Visibility="Collapsed" TextWrapping="Wrap" FontWeight="SemiBold" Margin="0,12,0,0"/>
+            <Border Style="{StaticResource Card}" Padding="16,12" Margin="0,14,0,0">
+              <StackPanel>
+                <DockPanel>
+                  <Button x:Name="MonitorToggle" DockPanel.Dock="Right" Style="{StaticResource Action}" Padding="10,6"
+                          VerticalAlignment="Center" Content="Suspendre le suivi" Margin="10,0,0,0"/>
+                  <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="Suivi USB" FontSize="17" FontWeight="SemiBold"/>
+                    <TextBlock x:Name="MonitorStatus" TextWrapping="Wrap" FontSize="13" Foreground="{StaticResource MutedBrush}" Margin="0,2,0,0"/>
+                  </StackPanel>
+                </DockPanel>
+                <Border Height="1" Background="{StaticResource LineBrush}" Margin="0,12,0,8"/>
+                <Expander x:Name="MonitorHistory" Header="Activité des branchements">
+                  <StackPanel Margin="22,7,0,4">
+                    <TextBlock Text="Reproduisez le problème en utilisant l’accessoire. Une disparition suivie d’un retour indique que Windows a perdu puis retrouvé cette entrée. Une coupure très brève peut survenir entre deux relevés."
+                               TextWrapping="Wrap" Foreground="{StaticResource MutedBrush}" Margin="0,0,0,6"/>
+                    <TextBlock x:Name="MonitorEmpty" Text="Aucun changement observé. Si un accessoire branché reste invisible, vérifiez son alimentation, essayez un câble de données puis une prise directe sur le PC." TextWrapping="Wrap" Foreground="{StaticResource MutedBrush}"/>
+                    <ListBox x:Name="MonitorEvents" Visibility="Collapsed" MaxHeight="208" AutomationProperties.Name="Dernières observations USB"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch">
+                      <ListBox.ItemTemplate><DataTemplate><TextBlock Text="{Binding}" TextWrapping="Wrap" Margin="2,3"/></DataTemplate></ListBox.ItemTemplate>
+                    </ListBox>
+                  </StackPanel>
+                </Expander>
+                <Expander x:Name="MapTracking" Header="Suivi des changements de port" IsExpanded="True" Margin="0,5,0,0">
+                  <StackPanel x:Name="MapChanges" Margin="22,7,0,4"/>
+                </Expander>
+              </StackPanel>
+            </Border>
+          </StackPanel>
+          <StackPanel x:Name="SpeedPage" Visibility="Collapsed">
+            <StackPanel.Resources>
+              <Style x:Key="SpeedReading" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="White"/><Setter Property="FontSize" Value="32"/>
+                <Setter Property="FontWeight" Value="SemiBold"/><Setter Property="TextWrapping" Value="Wrap"/>
+              </Style>
+              <Style x:Key="SpeedTrack" TargetType="ProgressBar">
+                <Setter Property="Height" Value="5"/><Setter Property="Background" Value="#394760"/>
+                <Setter Property="Maximum" Value="1"/><Setter Property="Template"><Setter.Value>
+                  <ControlTemplate TargetType="ProgressBar">
+                    <Grid x:Name="PART_Track">
+                      <Border Background="{TemplateBinding Background}" CornerRadius="2"/>
+                      <Border x:Name="PART_Indicator" HorizontalAlignment="Left" Background="{TemplateBinding Foreground}" CornerRadius="2"/>
+                    </Grid>
+                  </ControlTemplate>
+                </Setter.Value></Setter>
+              </Style>
+              <Style x:Key="SpeedHistoryEntry" TargetType="Expander">
+                <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="Expander">
+                  <StackPanel>
+                    <ToggleButton x:Name="RowToggle" Padding="14,10" HorizontalContentAlignment="Stretch" Cursor="Hand"
+                                  Background="Transparent" BorderThickness="0" FocusVisualStyle="{StaticResource FocusRing}"
+                                  AutomationProperties.Name="{TemplateBinding AutomationProperties.Name}"
+                                  IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
+                      <ToggleButton.Template><ControlTemplate TargetType="ToggleButton">
+                        <Border x:Name="RowFill" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" CornerRadius="7">
+                          <ContentPresenter HorizontalAlignment="Stretch"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                          <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="RowFill" Property="Background" Value="{StaticResource AccentSoftBrush}"/></Trigger>
+                        </ControlTemplate.Triggers>
+                      </ControlTemplate></ToggleButton.Template>
+                      <DockPanel>
+                        <TextBlock x:Name="Chevron" DockPanel.Dock="Right" Style="{StaticResource Glyph}" Text="&#xE70D;"
+                                   Foreground="{StaticResource MutedBrush}" FontSize="13" Margin="12,0,0,0"/>
+                        <ContentPresenter ContentSource="Header"/>
+                      </DockPanel>
+                    </ToggleButton>
+                    <ContentPresenter x:Name="HistoryDetails" Visibility="Collapsed" Margin="14,0,14,12"/>
+                  </StackPanel>
+                  <ControlTemplate.Triggers><Trigger Property="IsExpanded" Value="True">
+                    <Setter TargetName="HistoryDetails" Property="Visibility" Value="Visible"/>
+                    <Setter TargetName="Chevron" Property="Text" Value="&#xE70E;"/>
+                  </Trigger></ControlTemplate.Triggers>
+                </ControlTemplate></Setter.Value></Setter>
+              </Style>
+            </StackPanel.Resources>
+            <Border Style="{StaticResource Card}" Padding="0">
+              <StackPanel>
+                <Grid Margin="18,16">
+                  <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                  <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                  <DockPanel x:Name="SpeedHeading">
+                    <Border DockPanel.Dock="Left" Width="38" Height="38" VerticalAlignment="Top" Margin="0,1,12,0"
+                            Background="{StaticResource AccentSoftBrush}" CornerRadius="10">
+                      <TextBlock Style="{StaticResource Glyph}" Text="&#xE774;" HorizontalAlignment="Center" Foreground="{StaticResource AccentBrush}"/>
+                    </Border>
+                    <StackPanel VerticalAlignment="Center">
+                      <TextBlock x:Name="SpeedStatus" Text="Prêt à mesurer" FontSize="18" FontWeight="SemiBold" TextWrapping="Wrap"/>
+                      <TextBlock Text="Cloudflare · Jusqu’à 100 Mo par test" FontSize="13" TextWrapping="Wrap" Foreground="{StaticResource MutedBrush}"/>
+                    </StackPanel>
+                  </DockPanel>
+                  <StackPanel x:Name="SpeedActions" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="12,0,0,0">
+                    <Button x:Name="SpeedStart" Style="{StaticResource PrimaryAction}" Content="Lancer le test"/>
+                    <Button x:Name="SpeedCancel" Style="{StaticResource Action}" Content="Annuler" Visibility="Collapsed"/>
+                  </StackPanel>
+                </Grid>
+                <DockPanel x:Name="SpeedStage" Margin="18,0,18,12" Visibility="Collapsed">
+                  <TextBlock x:Name="SpeedStageLabel" DockPanel.Dock="Left" FontSize="12" FontWeight="SemiBold"
+                             Foreground="{StaticResource AccentHoverBrush}" Margin="0,0,10,0"/>
+                  <ProgressBar x:Name="SpeedProgress" Style="{StaticResource SpeedTrack}" Maximum="4" VerticalAlignment="Center"
+                               AutomationProperties.Name="Étapes terminées" Foreground="{StaticResource AccentBrush}" Background="{StaticResource AccentSoftBrush}"/>
+                </DockPanel>
+                <Border Background="{StaticResource InkBrush}" Padding="7,6">
+                  <DockPanel>
+                    <TextBlock x:Name="SpeedScale" DockPanel.Dock="Bottom" Visibility="Collapsed" Margin="13,0,13,6" TextWrapping="Wrap"
+                               Foreground="{StaticResource InkMutedBrush}" FontSize="12"/>
+                    <UniformGrid x:Name="SpeedMetrics" Columns="2">
+                      <StackPanel Margin="13,10,13,12">
+                        <StackPanel Orientation="Horizontal">
+                          <TextBlock Style="{StaticResource Glyph}" Text="&#xE896;" Foreground="#80E2CF" Margin="0,0,8,0"/>
+                          <TextBlock Text="Réception" FontWeight="SemiBold" Foreground="#A8F0DF"/>
+                        </StackPanel>
+                        <TextBlock x:Name="SpeedDownload" AutomationProperties.Name="Débit en réception" Style="{StaticResource SpeedReading}" Text="—"/>
+                        <TextBlock x:Name="SpeedDownloadBytes" Foreground="{StaticResource InkMutedBrush}" FontSize="13" Text="En attente"/>
+                        <ProgressBar x:Name="SpeedDownloadBar" Style="{StaticResource SpeedTrack}" Foreground="#80E2CF" Margin="0,11,0,0"
+                                     AutomationProperties.Name="Réception sur l’échelle commune" ToolTip="Les deux barres utilisent la même échelle de débit."/>
+                      </StackPanel>
+                      <StackPanel Margin="13,10,13,12">
+                        <StackPanel Orientation="Horizontal">
+                          <TextBlock Style="{StaticResource Glyph}" Text="&#xE898;" Foreground="#ADBFFF" Margin="0,0,8,0"/>
+                          <TextBlock Text="Envoi" FontWeight="SemiBold" Foreground="#CCD6FF"/>
+                        </StackPanel>
+                        <TextBlock x:Name="SpeedUpload" AutomationProperties.Name="Débit en envoi" Style="{StaticResource SpeedReading}" Text="—"/>
+                        <TextBlock x:Name="SpeedUploadBytes" Foreground="{StaticResource InkMutedBrush}" FontSize="13" Text="En attente"/>
+                        <ProgressBar x:Name="SpeedUploadBar" Style="{StaticResource SpeedTrack}" Foreground="#ADBFFF" Margin="0,11,0,0"
+                                     AutomationProperties.Name="Envoi sur l’échelle commune" ToolTip="Les deux barres utilisent la même échelle de débit."/>
+                      </StackPanel>
+                    </UniformGrid>
+                  </DockPanel>
+                </Border>
+                <StackPanel Margin="18,12">
+                  <WrapPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,20,0" ToolTip="Médiane de cinq allers-retours HTTPS vers Cloudflare.">
+                      <TextBlock Style="{StaticResource Glyph}" Text="&#xE916;" FontSize="15" Foreground="{StaticResource MutedBrush}" Margin="0,0,7,0"/>
+                      <TextBlock Text="Latence HTTPS" Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center"/>
+                      <TextBlock x:Name="SpeedLatency" Text="—" FontWeight="SemiBold" Margin="7,0,0,0" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <TextBlock x:Name="SpeedJitter" Text="Gigue : —" Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center"
+                               ToolTip="Variation moyenne entre deux mesures successives de latence."/>
+                  </WrapPanel>
+                  <Expander x:Name="SpeedDetails" Header="Détails de la connexion et des transferts" Visibility="Collapsed" Margin="0,10,0,0">
+                    <StackPanel Margin="22,4,0,0">
+                      <TextBlock x:Name="SpeedNetworkDetails" TextWrapping="Wrap" Foreground="{StaticResource MutedBrush}"/>
+                      <TextBlock x:Name="SpeedTransferDetails" TextWrapping="Wrap" Margin="0,4,0,0" Foreground="{StaticResource MutedBrush}" Visibility="Collapsed"/>
+                    </StackPanel>
+                  </Expander>
+                </StackPanel>
+              </StackPanel>
+            </Border>
+            <TextBlock Text="Historique" FontSize="21" FontWeight="SemiBold" Margin="0,20,0,2"/>
+            <TextBlock Text="Les 10 derniers tests terminés sur ce PC." FontSize="13" Foreground="{StaticResource MutedBrush}" Margin="0,0,0,9"/>
+            <Border Style="{StaticResource Card}" Padding="4,3">
+              <StackPanel x:Name="SpeedHistory"/>
+            </Border>
+          </StackPanel>
+          <StackPanel x:Name="NetworkDevicesView" Visibility="Collapsed">
+            <Border Style="{StaticResource Card}">
+              <StackPanel>
+                <Label Target="{Binding ElementName=DevicesConnection}" Content="_Connexion à explorer"
+                       Foreground="{StaticResource TextBrush}" FontSize="19" FontWeight="SemiBold" Padding="0,0,0,7"/>
+                <ComboBox x:Name="DevicesConnection" AutomationProperties.Name="Connexion à explorer" Padding="7,5"
+                          HorizontalContentAlignment="Stretch"/>
+                <WrapPanel Margin="0,12,0,0">
+                  <Button x:Name="DevicesSearch" Content="Rechercher les appareils" Style="{StaticResource PrimaryAction}"
+                          Margin="0,0,8,3"/>
+                  <Button x:Name="DevicesCancel" Content="Annuler" Style="{StaticResource Action}" Visibility="Collapsed" Margin="0,0,8,3"/>
+                  <Button x:Name="RouterImport" Content="Lire depuis la box…" Style="{StaticResource Action}" Margin="0,0,0,3"/>
+                </WrapPanel>
+              </StackPanel>
+            </Border>
+            <TextBlock x:Name="DevicesStatus" Foreground="{StaticResource MutedBrush}" Margin="0,10,0,0" TextWrapping="Wrap"/>
+            <ProgressBar x:Name="DevicesProgress" Height="4" Foreground="{StaticResource AccentBrush}" Margin="0,6,0,0" Visibility="Collapsed"/>
+            <Border Style="{StaticResource Card}" Margin="0,14,0,0">
+              <StackPanel>
+                <Label Content="_Filtrer par nom, IP ou adresse MAC" Target="{Binding ElementName=DevicesFilter}"
+                       Padding="0,0,0,5" FontWeight="SemiBold"/>
+                <TextBox x:Name="DevicesFilter" AutomationProperties.Name="Filtrer par nom, IP ou adresse MAC" Padding="7,5"/>
+                <TabControl x:Name="DevicesSource" SelectedIndex="0" Margin="0,12,0,0">
+                  <TabItem Header="Depuis ce PC" Padding="10,5"><StackPanel Margin="4">
+                <DataGrid x:Name="DevicesTable" AutomationProperties.Name="Appareils détectés"
+                          AutoGenerateColumns="False" CanUserSortColumns="True" CanUserAddRows="False" IsReadOnly="True"
+                          CanUserReorderColumns="False" SelectionMode="Single" HeadersVisibility="Column" GridLinesVisibility="Horizontal"
+                          HorizontalGridLinesBrush="{StaticResource LineBrush}" BorderBrush="{StaticResource LineBrush}" Background="{StaticResource SurfaceBrush}" AlternatingRowBackground="{StaticResource CanvasBrush}"
+                          MaxHeight="460" MinHeight="65" RowHeight="32" ColumnHeaderHeight="34">
+                  <DataGrid.Columns>
+                    <DataGridTextColumn Header="Nom de l’appareil" Binding="{Binding Name, Mode=OneWay}" SortMemberPath="Name" Width="3*" MinWidth="130"/>
+                    <DataGridTextColumn Header="Adresse IP locale" Binding="{Binding Address, Mode=OneWay}" SortMemberPath="AddressNumber" Width="2*" MinWidth="120"/>
+                    <DataGridTextColumn Header="Adresse MAC" Binding="{Binding MacAddress, Mode=OneWay}" SortMemberPath="MacAddress" Width="2*" MinWidth="154"/>
+                  </DataGrid.Columns>
+                </DataGrid>
+                <TextBlock x:Name="DevicesCount" Margin="0,7,0,0" Foreground="{StaticResource MutedBrush}" TextWrapping="Wrap"/>
+                <TextBlock Text="Sélectionnez une ligne pour voir les détails de l’appareil." Margin="0,3,0,0" TextWrapping="Wrap"/>
+                  </StackPanel></TabItem>
+                  <TabItem Header="Depuis la box" Padding="10,5"><StackPanel Margin="4">
+                    <TextBlock x:Name="RouterStatus" Text="Utilisez « Lire depuis la box… » pour charger les clients de votre réseau."
+                               TextWrapping="Wrap" Margin="0,1,0,6"/>
+                    <DataGrid x:Name="RouterTable" AutomationProperties.Name="Clients de la box" AutoGenerateColumns="False"
+                              CanUserSortColumns="True" CanUserAddRows="False" IsReadOnly="True" HeadersVisibility="Column"
+                              GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="{StaticResource LineBrush}" AlternatingRowBackground="{StaticResource CanvasBrush}"
+                              MaxHeight="460" MinHeight="65" RowHeight="32" ColumnHeaderHeight="34"/>
+                  </StackPanel></TabItem>
+                </TabControl>
+              </StackPanel>
+            </Border>
+            <Border x:Name="DeviceDetails" Visibility="Collapsed" Style="{StaticResource Card}" Margin="0,12,0,0">
+              <StackPanel>
+                <TextBlock x:Name="DeviceDetailTitle" FontSize="19" FontWeight="SemiBold" TextWrapping="Wrap"/>
+                <TextBlock x:Name="DeviceIdentity" Margin="0,6,0,0" TextWrapping="Wrap" Foreground="{StaticResource MutedBrush}"/>
+                <TextBlock Text="Ports TCP" Margin="0,14,0,0" FontSize="16" FontWeight="SemiBold"/>
+                <TextBlock x:Name="DeviceServicePort" Margin="0,4,0,0" TextWrapping="Wrap" Visibility="Collapsed"/>
+                <TextBlock x:Name="DevicePorts" Margin="0,4,0,0" TextWrapping="Wrap"/>
+                <Label Content="Tester le port _TCP" Target="{Binding ElementName=DevicePortNumber}" Padding="0,10,0,3"/>
+                <WrapPanel>
+                  <TextBox x:Name="DevicePortNumber" AutomationProperties.Name="Numéro de port TCP" Width="80" MaxLength="5"
+                           VerticalContentAlignment="Center" Padding="7,4" Margin="0,0,8,3"/>
+                  <Button x:Name="DeviceTestPort" Style="{StaticResource Action}" Content="Tester ce port" Padding="12,6" Margin="0,0,0,3"/>
+                </WrapPanel>
+                <TextBlock x:Name="DevicePortResult" TextWrapping="Wrap" Foreground="{StaticResource MutedBrush}" Margin="0,4,0,0"/>
+              </StackPanel>
+            </Border>
+            <TextBlock Margin="0,10,0,0" TextWrapping="Wrap" Foreground="{StaticResource MutedBrush}"
+                       Text="La recherche depuis ce PC couvre les voisins IPv4 de la carte choisie. La liste de la box peut aussi inclure des appareils isolés ou en IPv6."/>
+          </StackPanel>
+          <StackPanel x:Name="NetworkRepairView" Visibility="Collapsed">
+            <Border Style="{StaticResource Card}">
+              <StackPanel>
+                <TextBlock Text="Vérifier la connexion" TextWrapping="Wrap" FontSize="21" FontWeight="SemiBold" Foreground="{StaticResource TextBrush}"/>
+                <TextBlock Text="Le diagnostic examine les cartes actives, teste la passerelle et la résolution des noms, puis contacte le serveur de contrôle Microsoft. Vous choisissez ensuite la correction à appliquer."
+                           TextWrapping="Wrap" Foreground="{StaticResource MutedBrush}" Margin="0,6,0,12"/>
+                <Button x:Name="NetworkCheck" Content="Lancer le diagnostic" HorizontalAlignment="Left" Style="{StaticResource PrimaryAction}"/>
+              </StackPanel>
+            </Border>
+            <TextBlock x:Name="NetworkFeedback" Visibility="Collapsed" TextWrapping="Wrap" Foreground="{StaticResource TextBrush}" Margin="0,12,0,0"/>
+            <Border x:Name="NetworkResult" Style="{StaticResource Card}" Margin="0,12,0,0" Visibility="Collapsed">
+              <StackPanel>
+                <TextBlock x:Name="NetworkResultTitle" TextWrapping="Wrap" FontWeight="SemiBold" FontSize="19"/>
+                <TextBlock x:Name="NetworkDetail" TextWrapping="Wrap" Margin="0,5,0,10" Foreground="{StaticResource MutedBrush}"/>
+                <WrapPanel>
+                  <Button x:Name="NetworkFix" Visibility="Collapsed" Style="{StaticResource PrimaryAction}" Margin="0,0,8,4"/>
+                  <Button x:Name="NetworkSettings" Content="Paramètres réseau" Style="{StaticResource Action}" Margin="0,0,0,4"/>
+                </WrapPanel>
+              </StackPanel>
+            </Border>
+          </StackPanel>
+          <StackPanel x:Name="StartView" Visibility="Collapsed">
+            <TextBlock Text="Quel problème rencontrez-vous ?" FontSize="20" FontWeight="SemiBold" TextWrapping="Wrap" Margin="0,0,0,10"/>
+            <UniformGrid x:Name="SymptomLinks" Columns="2"/>
+            <Border Style="{StaticResource Card}" Margin="0,12,0,0">
+              <StackPanel>
+                <TextBlock Text="Vérifications de Windows" FontWeight="SemiBold" FontSize="18"/>
+                <WrapPanel Margin="0,8,0,0">
+                  <Button x:Name="StartIntegrity" Style="{StaticResource Action}" Content="Intégrité de Windows" Margin="0,0,12,4"/>
+                  <TextBlock x:Name="AccessLevel" VerticalAlignment="Center" Foreground="{StaticResource MutedBrush}" Margin="0,0,0,4"/>
+                </WrapPanel>
+              </StackPanel>
+            </Border>
+            <WrapPanel Margin="0,12,0,0">
+              <Button x:Name="StartReport" Style="{StaticResource Action}" Content="Ouvrir le rapport" Margin="0,0,8,4"/>
+              <Button x:Name="StartCatalog" Style="{StaticResource Action}" Content="Tous les outils" Margin="0,0,0,4"/>
+            </WrapPanel>
+          </StackPanel>
+          <StackPanel x:Name="PerformanceView" Visibility="Collapsed">
+            <StackPanel.Resources>
+              <Style x:Key="FindingToggle" TargetType="ToggleButton">
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="FocusVisualStyle" Value="{StaticResource FocusRing}"/>
+                <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ToggleButton">
+                  <Border x:Name="HitArea" Background="Transparent" CornerRadius="6" Padding="10,8">
+                    <Grid><Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                      <ContentPresenter VerticalAlignment="Center"/>
+                      <TextBlock x:Name="Chevron" Grid.Column="1" Text="&#xE70D;" Style="{StaticResource Glyph}"
+                                 FontSize="13" Margin="12,0,0,0" Foreground="{StaticResource MutedBrush}"/>
+                    </Grid>
+                  </Border>
+                  <ControlTemplate.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="HitArea" Property="Background" Value="{StaticResource CanvasBrush}"/></Trigger>
+                    <Trigger Property="IsChecked" Value="True"><Setter TargetName="Chevron" Property="Text" Value="&#xE70E;"/></Trigger>
+                    <Trigger Property="IsPressed" Value="True"><Setter TargetName="HitArea" Property="Background" Value="{StaticResource AccentSoftBrush}"/></Trigger>
+                  </ControlTemplate.Triggers>
+                </ControlTemplate></Setter.Value></Setter>
+              </Style>
+              <Style x:Key="FindingExpander" TargetType="Expander">
+                <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="Expander">
+                  <StackPanel>
+                    <ToggleButton x:Name="HeaderSite" Style="{StaticResource FindingToggle}" Content="{TemplateBinding Header}"
+                                  IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                  AutomationProperties.Name="{Binding AccessibleName}"/>
+                    <ContentPresenter x:Name="DetailsSite" Margin="10,1,10,12" Visibility="Collapsed"/>
+                  </StackPanel>
+                  <ControlTemplate.Triggers><Trigger Property="IsExpanded" Value="True">
+                    <Setter TargetName="DetailsSite" Property="Visibility" Value="Visible"/>
+                  </Trigger></ControlTemplate.Triggers>
+                </ControlTemplate></Setter.Value></Setter>
+                <Style.Triggers><DataTrigger Binding="{Binding State}" Value="Warning"><Setter Property="IsExpanded" Value="True"/></DataTrigger></Style.Triggers>
+              </Style>
+              <Style x:Key="BilanFeedback" TargetType="TextBlock">
+                <Setter Property="TextWrapping" Value="Wrap"/><Setter Property="FontSize" Value="13"/>
+                <Setter Property="Foreground" Value="{StaticResource MutedBrush}"/><Setter Property="Margin" Value="0,8,0,0"/>
+                <Style.Triggers><Trigger Property="Text" Value=""><Setter Property="Visibility" Value="Collapsed"/></Trigger></Style.Triggers>
+              </Style>
+            </StackPanel.Resources>
+            <StackPanel x:Name="PerformanceLive"/>
+            <Border x:Name="PerformanceBilan" Style="{StaticResource Card}">
+              <StackPanel>
+                <Grid x:Name="PerformanceHeader">
+                  <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                  <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                  <DockPanel x:Name="PerformanceHeading">
+                    <Border Width="38" Height="38" VerticalAlignment="Top" Background="{StaticResource AccentSoftBrush}" CornerRadius="10" Margin="0,1,12,0">
+                      <TextBlock Text="&#xE9D9;" Style="{StaticResource Glyph}" HorizontalAlignment="Center" Foreground="{StaticResource AccentBrush}"/>
+                    </Border>
+                    <StackPanel>
+                      <TextBlock Text="Bilan de lenteur" FontSize="20" FontWeight="SemiBold"/>
+                      <TextBlock x:Name="PerformanceIntro" Text="Quand le PC ralentit, lancez un relevé de trois secondes." TextWrapping="Wrap"
+                                 FontSize="14" Margin="0,3,0,0" Foreground="{StaticResource MutedBrush}"/>
+                    </StackPanel>
+                  </DockPanel>
+                  <Grid x:Name="PerformanceCommands" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="14,0,0,0">
+                    <Button x:Name="PerformanceStart" Style="{StaticResource PrimaryAction}" Content="Lancer la mesure"/>
+                    <Button x:Name="PerformanceCancel" Style="{StaticResource Action}" Content="Annuler la mesure" Visibility="Collapsed"/>
+                  </Grid>
+                </Grid>
+                <TextBlock x:Name="PerformanceFeedback" Style="{StaticResource BilanFeedback}"/>
+                <ProgressBar x:Name="PerformanceProgress" Height="5" Margin="0,8,0,0" Minimum="0" Maximum="3" Visibility="Collapsed"
+                             AutomationProperties.Name="Avancement du relevé" Foreground="{StaticResource AccentBrush}" Background="{StaticResource AccentSoftBrush}"/>
+                <StackPanel x:Name="PerformanceResult" Visibility="Collapsed">
+                  <Border x:Name="PerformanceVerdictBand" CornerRadius="8" Padding="12,10" Margin="0,15,0,8">
+                    <DockPanel>
+                      <TextBlock x:Name="PerformanceVerdictIcon" Style="{StaticResource Glyph}" FontSize="18" VerticalAlignment="Top" Margin="0,3,10,0"/>
+                      <StackPanel>
+                        <TextBlock x:Name="PerformanceVerdict" Focusable="True" FontSize="17" FontWeight="SemiBold" TextWrapping="Wrap"/>
+                        <TextBlock x:Name="PerformanceStamp" FontSize="12" Margin="0,3,0,0" TextWrapping="Wrap"/>
+                      </StackPanel>
+                    </DockPanel>
+                  </Border>
+                  <ItemsControl x:Name="PerformanceFindings">
+                    <ItemsControl.ItemTemplate><DataTemplate>
+                      <Border BorderBrush="{StaticResource LineBrush}" BorderThickness="0,0,0,1">
+                        <Expander x:Name="FindingRow" Style="{StaticResource FindingExpander}" AutomationProperties.Name="{Binding AccessibleName}">
+                          <Expander.Header><Grid>
+                            <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                            <StackPanel VerticalAlignment="Center" Margin="0,0,8,0">
+                              <TextBlock Text="{Binding Label}" FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap"/>
+                              <TextBlock x:Name="FindingValue" Text="{Binding Value}" Margin="0,2,0,0" FontSize="13" Foreground="{StaticResource MutedBrush}" TextWrapping="Wrap"/>
+                            </StackPanel>
+                            <Border x:Name="StateFrame" Grid.Column="1" VerticalAlignment="Center" CornerRadius="5" Padding="7,3" Background="{StaticResource SuccessSoftBrush}">
+                              <TextBlock x:Name="StateLabel" Text="{Binding Status}" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource SuccessBrush}"/>
+                            </Border>
+                          </Grid></Expander.Header>
+                          <StackPanel>
+                            <TextBlock x:Name="FindingAdvice" Text="{Binding Advice}" TextWrapping="Wrap" Margin="0,0,0,5"/>
+                            <TextBlock Text="{Binding Threshold}" Foreground="{StaticResource MutedBrush}" FontSize="13" TextWrapping="Wrap"/>
+                          </StackPanel>
+                        </Expander>
+                      </Border>
+                      <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding Advice}" Value="{x:Null}"><Setter TargetName="FindingAdvice" Property="Visibility" Value="Collapsed"/></DataTrigger>
+                        <DataTrigger Binding="{Binding State}" Value="Warning">
+                          <Setter TargetName="StateFrame" Property="Background" Value="{StaticResource WarningSoftBrush}"/>
+                          <Setter TargetName="StateLabel" Property="Foreground" Value="{StaticResource WarningBrush}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding State}" Value="Unavailable">
+                          <Setter TargetName="FindingValue" Property="Visibility" Value="Collapsed"/>
+                          <Setter TargetName="StateFrame" Property="Background" Value="{StaticResource CanvasBrush}"/>
+                          <Setter TargetName="StateLabel" Property="Foreground" Value="{StaticResource MutedBrush}"/>
+                        </DataTrigger>
+                      </DataTemplate.Triggers>
+                    </DataTemplate></ItemsControl.ItemTemplate>
+                  </ItemsControl>
+                  <TextBlock x:Name="PerformanceNextStep" Style="{StaticResource BilanFeedback}"/>
+                  <WrapPanel Margin="0,8,0,0">
+                    <Button x:Name="PerformanceCopy" Style="{StaticResource Action}" Content="Copier ce bilan" IsEnabled="False" Margin="0,4,8,0"/>
+                    <Button x:Name="PerformanceReport" Style="{StaticResource Action}" Content="Ouvrir le rapport" Margin="0,4,0,0"/>
+                  </WrapPanel>
+                  <TextBlock x:Name="PerformanceCopyFeedback" Style="{StaticResource BilanFeedback}"/>
+                </StackPanel>
+              </StackPanel>
+            </Border>
+          </StackPanel>
+          <StackPanel x:Name="IntegrityView" Visibility="Collapsed"/>
+          <StackPanel x:Name="ReportView" Visibility="Collapsed">
+            <Border Style="{StaticResource Card}">
+              <StackPanel>
+                <Button x:Name="CopyReport" Style="{StaticResource PrimaryAction}" Content="Copier le rapport" HorizontalAlignment="Left"/>
+                <TextBlock x:Name="ReportFeedback" Foreground="{StaticResource TextBrush}" TextWrapping="Wrap"/>
+                <TextBox x:Name="ReportText" AutomationProperties.Name="Contenu du rapport d’intervention" TextWrapping="Wrap" IsReadOnly="True"
+                         FontSize="15" BorderThickness="0" Padding="0" Margin="0,15,0,0" Background="Transparent"/>
+              </StackPanel>
+            </Border>
+          </StackPanel>
+          <StackPanel x:Name="DuplicateView" Visibility="Collapsed">
+            <StackPanel.Resources>
+              <Style x:Key="DuplicateHint" TargetType="TextBlock">
+                <Setter Property="TextWrapping" Value="Wrap"/><Setter Property="Foreground" Value="{StaticResource MutedBrush}"/>
+              </Style>
+              <DataTemplate x:Key="DuplicateFileCard">
+                <Border x:Name="FileCard" Background="{StaticResource SurfaceBrush}" CornerRadius="10" BorderThickness="1"
+                        BorderBrush="{StaticResource LineBrush}" Margin="0,0,8,8">
+                  <Grid>
+                    <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                    <Border x:Name="PreviewArea" Height="142" CornerRadius="9,9,0,0" Background="{StaticResource AccentSoftBrush}">
+                      <Grid>
+                        <TextBlock x:Name="TypeBadge" Foreground="{StaticResource MutedBrush}" FontWeight="SemiBold" FontSize="18"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Image x:Name="Picture" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality" AutomationProperties.Name="Aperçu de la photo"/>
+                      </Grid>
+                    </Border>
+                    <StackPanel Grid.Row="1" Margin="13,9,13,8">
+                      <TextBlock x:Name="DisplayName" TextWrapping="Wrap" FontSize="16" FontWeight="SemiBold"/>
+                      <TextBlock x:Name="DistinctFolder" Style="{StaticResource DuplicateHint}" FontSize="13" Visibility="Collapsed"/>
+                      <WrapPanel Margin="0,5,0,3" VerticalAlignment="Center">
+                        <Border Padding="6,2" Margin="0,0,9,2" Background="{StaticResource AccentSoftBrush}" CornerRadius="4">
+                          <TextBlock x:Name="FileFormat" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource AccentPressedBrush}" ToolTip="Format détecté"/>
+                        </Border>
+                        <TextBlock x:Name="FileDimensions" FontSize="13" Margin="0,1,10,2" ToolTip="Dimensions"/>
+                        <TextBlock x:Name="FileSize" FontSize="13" Margin="0,1,0,2" ToolTip="Taille du fichier"/>
+                      </WrapPanel>
+                      <TextBlock x:Name="FileOrigin" Style="{StaticResource DuplicateHint}" FontSize="12" Margin="0,0,0,3" Visibility="Collapsed"/>
+                      <Expander x:Name="FileDetails" Header="Détails du fichier" FontSize="12" Foreground="{StaticResource MutedBrush}" FocusVisualStyle="{StaticResource FocusRing}">
+                        <StackPanel Margin="4,5,0,2">
+                          <TextBlock x:Name="FileName" TextWrapping="Wrap" Foreground="{StaticResource TextBrush}"/>
+                          <TextBlock x:Name="FileFolder" Style="{StaticResource DuplicateHint}"/>
+                          <TextBlock x:Name="FileDate" Style="{StaticResource DuplicateHint}" Margin="0,3"/>
+                          <Button x:Name="LocateFile" Style="{StaticResource Action}" HorizontalAlignment="Left" Padding="7,4"
+                                  FontSize="12" Content="Voir dans l’Explorateur"/>
+                        </StackPanel>
+                      </Expander>
+                    </StackPanel>
+                    <Border x:Name="MarkArea" Grid.Row="2" CornerRadius="0,0,9,9" BorderBrush="{StaticResource LineBrush}"
+                            BorderThickness="0,1,0,0" Padding="10,9">
+                      <CheckBox x:Name="MarkFile" VerticalContentAlignment="Center" FocusVisualStyle="{StaticResource FocusRing}">
+                        <TextBlock x:Name="MarkLabel" Text="Marquer pour la Corbeille" FontWeight="SemiBold" TextWrapping="Wrap"/>
+                      </CheckBox>
+                    </Border>
+                  </Grid>
+                </Border>
+              </DataTemplate>
+            </StackPanel.Resources>
+            <Border x:Name="DuplicateSource" Style="{StaticResource Card}" Padding="16,13">
+              <StackPanel>
+                <Label Content="Dossier à analyser" Target="{Binding ElementName=DuplicateFolder}" Padding="0,0,0,5" FontWeight="SemiBold"/>
+                <DockPanel>
+                  <Button x:Name="DuplicateChoose" Content="Parcourir…" Style="{StaticResource Action}" DockPanel.Dock="Right" Margin="8,0,0,0"/>
+                  <TextBox x:Name="DuplicateFolder" VerticalContentAlignment="Center" Padding="8,5" AutomationProperties.Name="Dossier à analyser"/>
+                </DockPanel>
+                <WrapPanel Margin="0,8,0,0">
+                  <Button x:Name="DuplicateStart" Content="Lancer la recherche" Style="{StaticResource PrimaryAction}" Margin="0,3,8,0" IsEnabled="False"/>
+                  <Button x:Name="DuplicateCancel" Content="Annuler" Style="{StaticResource Action}" Margin="0,3,0,0" Visibility="Collapsed"/>
+                </WrapPanel>
+                <TextBlock Text="Vous pourrez comparer les résultats et choisir les copies à placer dans la Corbeille." Style="{StaticResource DuplicateHint}" FontSize="13" Margin="0,9,0,0"/>
+              </StackPanel>
+            </Border>
+            <ProgressBar x:Name="DuplicateProgress" Height="5" Margin="0,10,0,0" Visibility="Collapsed" AutomationProperties.Name="Opération en cours"/>
+            <TextBlock x:Name="DuplicateStatus" Style="{StaticResource DuplicateHint}" Margin="0,8,0,0" Visibility="Collapsed"/>
+            <Expander x:Name="DuplicateIssues" Margin="0,7,0,0" Foreground="{StaticResource WarningBrush}" Visibility="Collapsed">
+              <TextBlock x:Name="DuplicateIssueText" TextWrapping="Wrap" Margin="18,5,3,4" Foreground="{StaticResource TextBrush}"/>
+            </Expander>
+            <StackPanel x:Name="DuplicateCompare" Margin="0,8,0,0" Visibility="Collapsed">
+              <StackPanel x:Name="DuplicateLocation" Margin="0,0,0,9">
+                <DockPanel>
+                  <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Top">
+                    <Button x:Name="DuplicateEditFolder" Content="Modifier…" Style="{StaticResource Action}" FontSize="12" Padding="8,4"
+                            ToolTip="Modifier le dossier à analyser" AutomationProperties.Name="Modifier le dossier à analyser"/>
+                    <Button x:Name="DuplicateRestart" Content="Relancer" Style="{StaticResource Action}" Margin="5,0,0,0" FontSize="12" Padding="8,4"
+                            ToolTip="Rechercher à nouveau dans ce dossier" AutomationProperties.Name="Relancer la recherche dans ce dossier"/>
+                  </StackPanel>
+                  <WrapPanel VerticalAlignment="Center">
+                    <TextBlock Text="Résultats" Style="{StaticResource ConverterHeading}" Margin="0,0,9,0"/>
+                    <TextBlock x:Name="DuplicateComparisonCount" Style="{StaticResource DuplicateHint}" FontSize="12" VerticalAlignment="Center"/>
+                  </WrapPanel>
+                </DockPanel>
+                <TextBlock x:Name="DuplicateLocationText" Foreground="{StaticResource MutedBrush}" TextTrimming="CharacterEllipsis" FontSize="13" Margin="0,2,0,0"/>
+              </StackPanel>
+                  <TextBlock x:Name="DuplicateSingleCategory" FontWeight="SemiBold" TextWrapping="Wrap" Margin="0,0,0,6"/>
+                  <ListBox x:Name="DuplicateCategories" AutomationProperties.Name="Catégorie de résultats" Margin="0,0,0,9"
+                           ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch"
+                           BorderThickness="0" Padding="0" Background="Transparent" Visibility="Collapsed">
+                    <ListBox.ItemsPanel><ItemsPanelTemplate><WrapPanel/></ItemsPanelTemplate></ListBox.ItemsPanel>
+                    <ListBox.ItemContainerStyle>
+                      <Style TargetType="ListBoxItem">
+                        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusRing}"/>
+                        <Setter Property="AutomationProperties.Name" Value="{Binding Label}"/>
+                        <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ListBoxItem">
+                          <Border x:Name="CategoryFrame" BorderThickness="1" CornerRadius="6" Margin="0,0,6,4" BorderBrush="{StaticResource LineBrush}" Background="{StaticResource SurfaceBrush}" Padding="10,5">
+                            <TextBlock x:Name="CategoryLabel" Text="{Binding Label}" TextWrapping="Wrap"/>
+                          </Border>
+                          <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="CategoryFrame" Property="Background" Value="{StaticResource AccentSoftBrush}"/></Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                              <Setter TargetName="CategoryFrame" Property="Background" Value="{StaticResource AccentBrush}"/>
+                              <Setter TargetName="CategoryFrame" Property="BorderBrush" Value="{StaticResource AccentBrush}"/>
+                              <Setter TargetName="CategoryLabel" Property="Foreground" Value="{StaticResource SurfaceBrush}"/>
+                              <Setter Property="FontWeight" Value="SemiBold"/>
+                            </Trigger>
+                          </ControlTemplate.Triggers>
+                        </ControlTemplate></Setter.Value></Setter>
+                      </Style>
+                    </ListBox.ItemContainerStyle>
+                  </ListBox>
+              <Grid x:Name="DuplicateWorkspace">
+                <Grid.ColumnDefinitions><ColumnDefinition Width="180"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                <StackPanel x:Name="DuplicateGroupPane" Margin="0,0,12,0">
+                  <TextBlock Text="Groupes" FontSize="14" FontWeight="SemiBold" Margin="1,1,0,7"/>
+                  <ListBox x:Name="DuplicateGroups" AutomationProperties.Name="Groupes trouvés" MaxHeight="420"
+                           ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch"
+                           BorderThickness="0" Padding="0" Background="Transparent">
+                    <ListBox.ItemContainerStyle>
+                      <Style TargetType="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/><Setter Property="FocusVisualStyle" Value="{StaticResource FocusRing}"/>
+                        <Setter Property="AutomationProperties.Name" Value="{Binding Name}"/><Setter Property="AutomationProperties.HelpText" Value="{Binding Detail}"/>
+                        <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ListBoxItem">
+                          <Border x:Name="GroupFrame" Margin="0,0,2,5" Padding="9,7" CornerRadius="7" BorderThickness="1"
+                                  BorderBrush="{StaticResource LineBrush}" Background="{StaticResource SurfaceBrush}">
+                            <ContentPresenter/>
+                          </Border>
+                          <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="GroupFrame" Property="BorderBrush" Value="{StaticResource AccentBrush}"/></Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                              <Setter TargetName="GroupFrame" Property="Background" Value="{StaticResource AccentSoftBrush}"/>
+                              <Setter TargetName="GroupFrame" Property="BorderBrush" Value="{StaticResource AccentBrush}"/>
+                            </Trigger>
+                          </ControlTemplate.Triggers>
+                        </ControlTemplate></Setter.Value></Setter>
+                      </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate><DataTemplate>
+                      <StackPanel ToolTip="{Binding Name}"><TextBlock Text="{Binding Formats}" FontWeight="SemiBold" TextWrapping="Wrap"/>
+                        <TextBlock Text="{Binding ListName}" TextTrimming="CharacterEllipsis" FontSize="12"/>
+                        <TextBlock Text="{Binding Detail}" Style="{StaticResource DuplicateHint}" FontSize="12" Margin="0,2,0,0"/></StackPanel>
+                    </DataTemplate></ListBox.ItemTemplate>
+                  </ListBox>
+                </StackPanel>
+                <StackPanel x:Name="DuplicateDetails" Grid.Column="1">
+                  <DockPanel><TextBlock x:Name="DuplicateGroupTitle" DockPanel.Dock="Left" FontWeight="SemiBold" FontSize="19" Margin="0,0,10,0"/>
+                    <TextBlock x:Name="DuplicateSharedName" TextTrimming="CharacterEllipsis" FontSize="13" VerticalAlignment="Center" Foreground="{StaticResource MutedBrush}"/>
+                  </DockPanel>
+                  <TextBlock x:Name="DuplicateProof" Style="{StaticResource DuplicateHint}" Margin="0,3,0,9"/>
+                  <UniformGrid x:Name="DuplicateCards" Columns="2"/>
+                </StackPanel>
+              </Grid>
+            </StackPanel>
+            <Border x:Name="DuplicateReviewPane" Style="{StaticResource Card}" Visibility="Collapsed">
+              <StackPanel>
+                <TextBlock x:Name="DuplicateReviewHeading" Text="Vérifier la mise à la Corbeille" Style="{StaticResource ConverterHeading}" Margin="0,0,0,4" Focusable="True" KeyboardNavigation.IsTabStop="False"/>
+                <TextBlock x:Name="DuplicateReviewTotal" Style="{StaticResource DuplicateHint}"/>
+                <StackPanel x:Name="DuplicateReviewGroups" Margin="0,10,0,2"/>
+                <WrapPanel>
+                  <Button x:Name="DuplicateModify" Content="Modifier ma sélection" Style="{StaticResource Action}" Margin="0,4,7,0"/>
+                  <Button x:Name="DuplicateConfirm" Content="Envoyer à la Corbeille" Style="{StaticResource PrimaryAction}" Margin="0,4,0,0"/>
+                </WrapPanel>
+              </StackPanel>
+            </Border>
+            <Border x:Name="DuplicateOutcome" Style="{StaticResource Card}" Margin="0,12,0,0" Visibility="Collapsed">
+              <StackPanel><TextBlock Text="Bilan de la mise à la Corbeille" Style="{StaticResource ConverterHeading}" Margin="0,0,0,5"/>
+                <TextBlock x:Name="DuplicateMoved" TextWrapping="Wrap"/>
+              </StackPanel>
+            </Border>
+          </StackPanel>
+          <StackPanel x:Name="WatermarkView" Visibility="Collapsed">
+            <Border x:Name="WatermarkDrop" Style="{StaticResource Card}" AllowDrop="True" Padding="16,12" Margin="0,0,0,12">
+              <DockPanel LastChildFill="True">
+                <Button x:Name="WatermarkChoose" DockPanel.Dock="Left" Content="Choisir un fichier…" Style="{StaticResource Action}" Margin="0,0,14,0"/>
+                <TextBlock x:Name="WatermarkName" VerticalAlignment="Center" Text="Ou déposez ici un PDF, un document Word (.docx) ou une image." TextWrapping="Wrap" Foreground="{StaticResource MutedBrush}"/>
+              </DockPanel>
+            </Border>
+            <Grid x:Name="WatermarkWorkspace">
+              <Grid.ColumnDefinitions><ColumnDefinition Width="5*"/><ColumnDefinition Width="6*"/></Grid.ColumnDefinitions>
+              <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+              <Border x:Name="WatermarkSettingsPane" Style="{StaticResource ConverterPane}" Margin="0,0,12,0">
+                <StackPanel x:Name="WatermarkSettings">
+                  <Label Content="Texte du filigrane" Target="{Binding ElementName=WatermarkText}" Style="{StaticResource ConverterLabel}"/>
+                  <TextBox x:Name="WatermarkText" AutomationProperties.Name="Texte du filigrane" Padding="8,6" FontSize="15" Margin="0,0,0,12"/>
+                  <Label Content="Disposition" Target="{Binding ElementName=WatermarkMode}" Style="{StaticResource ConverterLabel}"/>
+                  <ComboBox x:Name="WatermarkMode" SelectedIndex="0" AutomationProperties.Name="Disposition" Margin="0,0,0,12">
+                    <ComboBoxItem Content="Texte unique"/><ComboBoxItem Content="Texte répété"/>
+                  </ComboBox>
+                  <StackPanel x:Name="WatermarkPositionRow">
+                    <Label Content="Position" Target="{Binding ElementName=WatermarkPosition}" Style="{StaticResource ConverterLabel}"/>
+                    <ComboBox x:Name="WatermarkPosition" SelectedIndex="0" AutomationProperties.Name="Position" Margin="0,0,0,12">
+                      <ComboBoxItem Content="Centre, en diagonale"/><ComboBoxItem Content="En haut à gauche"/><ComboBoxItem Content="En haut à droite"/>
+                      <ComboBoxItem Content="En bas à gauche"/><ComboBoxItem Content="En bas à droite"/>
+                    </ComboBox>
+                  </StackPanel>
+                  <Label x:Name="WatermarkSizeLabel" Target="{Binding ElementName=WatermarkSize}" Style="{StaticResource ConverterLabel}"/>
+                  <Slider x:Name="WatermarkSize" AutomationProperties.Name="Taille du texte" Minimum="1" Maximum="100" Value="50" TickFrequency="1" IsSnapToTickEnabled="True" Margin="0,0,0,12"/>
+                  <Label x:Name="WatermarkOpacityLabel" Target="{Binding ElementName=WatermarkOpacity}" Style="{StaticResource ConverterLabel}"/>
+                  <Slider x:Name="WatermarkOpacity" AutomationProperties.Name="Opacité" Minimum="1" Maximum="100" Value="45" TickFrequency="1" IsSnapToTickEnabled="True"/>
+                </StackPanel>
+              </Border>
+              <Border x:Name="WatermarkPreviewPane" Grid.Column="1" Style="{StaticResource ConverterPane}">
+                <Grid>
+                  <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+                  <TextBlock x:Name="WatermarkCaption" Text="Aperçu" Style="{StaticResource ConverterHeading}"/>
+                  <Border Grid.Row="1" Background="{StaticResource CanvasBrush}" CornerRadius="6" Padding="8" MinHeight="160">
+                    <Grid>
+                      <TextBlock x:Name="WatermarkPlaceholder" Text="Choisissez un fichier pour afficher l’aperçu." TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MutedBrush}"/>
+                      <Viewbox x:Name="WatermarkSheet" Visibility="Collapsed" MaxHeight="310" Stretch="Uniform">
+                        <Grid x:Name="WatermarkPaper" Background="White" ClipToBounds="True">
+                          <Image x:Name="WatermarkBackground" Stretch="Fill"/>
+                          <Image x:Name="WatermarkOverlay" Stretch="Fill"/>
+                        </Grid>
+                      </Viewbox>
+                    </Grid>
+                  </Border>
+                </Grid>
+              </Border>
+            </Grid>
+            <TextBlock x:Name="WatermarkNotice" TextWrapping="Wrap" Foreground="{StaticResource MutedBrush}" Margin="2,10,2,0"/>
+            <WrapPanel Margin="0,10,0,0">
+              <Button x:Name="WatermarkSave" Content="Enregistrer une copie…" Style="{StaticResource PrimaryAction}" IsEnabled="False" Margin="0,0,8,4"/>
+              <Button x:Name="WatermarkCancel" Content="Annuler" Style="{StaticResource Action}" Visibility="Collapsed" Margin="0,0,8,4"/>
+              <Button x:Name="WatermarkFolder" Content="Ouvrir le dossier" Style="{StaticResource Action}" Visibility="Collapsed" Margin="0,0,0,4"/>
+            </WrapPanel>
+            <TextBlock x:Name="WatermarkStatus" TextWrapping="Wrap" Margin="2,4,2,0"/>
+          </StackPanel>
+          <StackPanel x:Name="MetadataView" Visibility="Collapsed">
+            <StackPanel.Resources>
+              <SolidColorBrush x:Key="MediaTint" Color="#FBF5ED"/>
+              <SolidColorBrush x:Key="MediaHighlight" Color="#F4E1CA"/>
+              <SolidColorBrush x:Key="MediaOutline" Color="#C8A584"/>
+              <SolidColorBrush x:Key="MediaInk" Color="#965C34"/>
+            </StackPanel.Resources>
+            <Grid x:Name="MetadataWorkspace">
+              <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+              <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+              <Border x:Name="MetadataSourcePane" Style="{StaticResource ConverterPane}" Margin="0,0,14,0">
+                <Grid>
+                  <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+                  <TextBlock Text="Fichiers source" Style="{StaticResource ConverterHeading}"/>
+                  <Border x:Name="MetadataDrop" Grid.Row="1" Style="{StaticResource ConverterDrop}">
+                    <Grid>
+                      <Rectangle Style="{StaticResource ConverterOutline}"/>
+                      <StackPanel VerticalAlignment="Center" Margin="14,16">
+                        <Grid x:Name="MetadataArtwork" Style="{StaticResource ConverterArtArea}">
+                          <ContentControl Style="{StaticResource ConverterArtwork}">
+                            <Canvas Width="38" Height="34">
+                              <Path Data="M19,2 Q25,6 32,7 V16 Q32,25 19,32 Q6,25 6,16 V7 Q13,6 19,2 Z" Stroke="White" StrokeThickness="2" StrokeLineJoin="Round"/>
+                              <Path Data="M13,16 L17,20 L25,12" Stroke="White" StrokeThickness="2.6" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round"/>
+                            </Canvas>
+                          </ContentControl>
+                        </Grid>
+                        <TextBlock x:Name="MetadataName" Text="Déposez vos photos et documents ici" TextAlignment="Center" TextWrapping="Wrap" FontSize="18" FontWeight="SemiBold" Margin="0,9,0,0"/>
+                        <TextBlock Text="JPEG, PNG, WebP, PDF, DOCX, XLSX et PPTX" Style="{StaticResource ConverterMessage}" TextAlignment="Center" Margin="0,4,0,0"/>
+                        <Button x:Name="MetadataChoose" Content="Choisir des fichiers…" Style="{StaticResource PrimaryAction}" HorizontalAlignment="Center" Margin="0,13,0,0"/>
+                      </StackPanel>
+                    </Grid>
+                  </Border>
+                </Grid>
+              </Border>
+              <Border x:Name="MetadataSettings" Grid.Column="1" Style="{StaticResource ConverterPane}">
+                <Grid>
+                  <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                  <TextBlock Text="Copie nettoyée" Style="{StaticResource ConverterHeading}"/>
+                  <StackPanel Grid.Row="1">
+                    <TextBlock Text="Format d’origine conservé" FontWeight="SemiBold" TextWrapping="Wrap"/>
+                    <TextBlock Text="Les métadonnées sont retirées sur ce PC. Les photos et les vignettes intégrées aux documents sont aussi vérifiées." Style="{StaticResource ConverterMessage}" Margin="0,4,0,0"/>
+                    <TextBlock x:Name="MetadataNote" Text="Le texte, les commentaires, les notes et les révisions peuvent encore contenir des informations personnelles." Style="{StaticResource ConverterMessage}" Foreground="{StaticResource WarningBrush}" Visibility="Collapsed"/>
+                  </StackPanel>
+                  <Border Grid.Row="2" BorderBrush="{StaticResource LineBrush}" BorderThickness="0,1,0,0" Padding="0,11,0,0" Margin="0,16,0,0">
+                    <StackPanel>
+                      <TextBlock x:Name="MetadataOutputHint" Style="{StaticResource ConverterMessage}" Margin="0,0,0,8"/>
+                      <WrapPanel>
+                        <Button x:Name="MetadataSave" Content="Enregistrer une copie nettoyée…" Style="{StaticResource PrimaryAction}" IsEnabled="False" Margin="0,0,6,2"/>
+                        <Button x:Name="MetadataCancel" Content="Annuler" Style="{StaticResource Action}" Visibility="Collapsed" Margin="0,0,0,2"/>
+                      </WrapPanel>
+                      <TextBlock x:Name="MetadataStatus" Style="{StaticResource ConverterMessage}" Foreground="{StaticResource TextBrush}"/>
+                    </StackPanel>
+                  </Border>
+                </Grid>
+              </Border>
+            </Grid>
+            <Border x:Name="MetadataBatch" Visibility="Collapsed">
+              <StackPanel>
+                <ListBox x:Name="MetadataItems" Style="{StaticResource BatchList}" AutomationProperties.Name="Suivi du nettoyage par fichier"/>
+                <Button x:Name="MetadataBatchFolder" Style="{StaticResource Action}" Content="Ouvrir le dossier des copies" HorizontalAlignment="Left" Margin="0,8,0,0" Visibility="Collapsed"/>
+              </StackPanel>
+            </Border>
+            <Border x:Name="MetadataResult" Style="{StaticResource ConversionResult}" Tag="Complet" Margin="0,12,0,0" Visibility="Collapsed">
+              <StackPanel>
+                <TextBlock Text="Copie vérifiée et enregistrée" FontSize="18" FontWeight="SemiBold" TextWrapping="Wrap"/>
+                <TextBlock x:Name="MetadataSummary" TextWrapping="Wrap" Margin="0,5,0,0"/>
+                <TextBlock x:Name="MetadataSaved" TextWrapping="Wrap" Foreground="{StaticResource MutedBrush}" Margin="0,4,0,0"/>
+                <Button x:Name="MetadataFolder" Style="{StaticResource Action}" Content="Ouvrir le dossier" HorizontalAlignment="Left" Margin="0,10,0,0"/>
+              </StackPanel>
+            </Border>
+          </StackPanel>
+          <StackPanel x:Name="ImageView" Visibility="Collapsed">
+            <StackPanel.Resources>
+              <SolidColorBrush x:Key="MediaTint" Color="#F2F5FF"/>
+              <SolidColorBrush x:Key="MediaHighlight" Color="#DFE6FE"/>
+              <SolidColorBrush x:Key="MediaOutline" Color="#A2B4EF"/>
+              <SolidColorBrush x:Key="MediaInk" Color="#425CC5"/>
+            </StackPanel.Resources>
+            <Grid x:Name="ImageWorkspace">
+              <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+              <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+              <Border x:Name="ImageSourcePane" Style="{StaticResource ConverterPane}" Margin="0,0,14,0">
+                <Grid>
+                  <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+                  <TextBlock Text="Fichiers source" Style="{StaticResource ConverterHeading}"/>
+                  <Border x:Name="ImageDropZone" Grid.Row="1" Style="{StaticResource ConverterDrop}">
+                    <Grid>
+                      <Rectangle Style="{StaticResource ConverterOutline}"/>
+                      <StackPanel Margin="14,16" VerticalAlignment="Center">
+                        <Grid x:Name="ImageArtwork">
+                          <Grid.Style>
+                            <Style TargetType="Grid" BasedOn="{StaticResource ConverterArtArea}">
+                              <Style.Triggers>
+                                <DataTrigger Binding="{Binding Visibility, ElementName=ImagePlaceholder}" Value="Collapsed">
+                                  <Setter Property="Height" Value="150"/>
+                                </DataTrigger>
+                                <MultiDataTrigger><MultiDataTrigger.Conditions>
+                                  <Condition Binding="{Binding Tag, RelativeSource={RelativeSource Self}}" Value="Compact"/>
+                                  <Condition Binding="{Binding Visibility, ElementName=ImagePlaceholder}" Value="Collapsed"/>
+                                </MultiDataTrigger.Conditions><Setter Property="Height" Value="118"/></MultiDataTrigger>
+                              </Style.Triggers>
+                            </Style>
+                          </Grid.Style>
+                          <ContentControl x:Name="ImagePlaceholder" Style="{StaticResource ConverterArtwork}">
+                            <Canvas Width="62" Height="32">
+                                <Ellipse Canvas.Left="41" Canvas.Top="2" Width="7" Height="7" Fill="#F2D283"/>
+                                <Path Data="M0,29 L18,10 32,23 39,17 56,30 Z" Fill="#ACBAFF"/>
+                                <Path Data="M18,30 L39,10 60,30 Z" Fill="White"/>
+                              </Canvas>
+                          </ContentControl>
+                          <Image x:Name="ImagePreview" Stretch="Uniform" AutomationProperties.Name="Aperçu de l’image"/>
+                        </Grid>
+                        <TextBlock x:Name="ImageName" Text="Déposez des images ici" TextAlignment="Center" TextWrapping="Wrap"
+                                   FontSize="18" FontWeight="SemiBold" Margin="0,9,0,0"/>
+                        <TextBlock x:Name="ImageDetails" TextAlignment="Center" Style="{StaticResource ConverterMessage}" Margin="0,4,0,0"/>
+                        <Button x:Name="ImageChoose" Content="Choisir des images…" Style="{StaticResource PrimaryAction}"
+                                HorizontalAlignment="Center" Margin="0,13,0,0"/>
+                      </StackPanel>
+                    </Grid>
+                  </Border>
+                </Grid>
+              </Border>
+              <Border x:Name="ImageSettings" Grid.Column="1" Style="{StaticResource ConverterPane}">
+                <Grid>
+                  <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                  <DockPanel>
+                    <TextBlock DockPanel.Dock="Right" Text="&#xE9E9;" Style="{StaticResource Glyph}" FontSize="18"
+                               Foreground="{StaticResource MutedBrush}" VerticalAlignment="Top" Margin="8,4,0,0"/>
+                    <TextBlock Text="Réglages de sortie" Style="{StaticResource ConverterHeading}"/>
+                  </DockPanel>
+                  <StackPanel Grid.Row="1">
+                      <StackPanel Margin="0,0,0,0">
+                        <Label Content="_Format de sortie" Target="{Binding ElementName=ImageFormat}" Style="{StaticResource ConverterLabel}"/>
+                        <ComboBox x:Name="ImageFormat" AutomationProperties.Name="Format de sortie" IsTextSearchEnabled="True"/>
+                      </StackPanel>
+                    <TextBlock x:Name="ImageWarning" Style="{StaticResource ConverterMessage}" Foreground="{StaticResource WarningBrush}" Visibility="Collapsed"/>
+                  </StackPanel>
+                  <Border Grid.Row="2" BorderBrush="{StaticResource LineBrush}" BorderThickness="0,1,0,0" Padding="0,11,0,0" Margin="0,16,0,0">
+                    <StackPanel>
+                      <TextBlock x:Name="ImageOutputHint" Style="{StaticResource ConverterMessage}" Margin="0,0,0,8"/>
+                      <WrapPanel>
+                        <Button x:Name="ImageSave" Content="Convertir et enregistrer…" Style="{StaticResource PrimaryAction}" IsEnabled="False" Margin="0,0,6,2"/>
+                        <Button x:Name="ImageCancel" Content="Annuler" Style="{StaticResource Action}" Visibility="Collapsed" Margin="0,0,0,2"/>
+                      </WrapPanel>
+                      <TextBlock x:Name="ImageStatus" Style="{StaticResource ConverterMessage}" Foreground="{StaticResource TextBrush}"/>
+                      <ProgressBar x:Name="ImageProgress" Height="5" Margin="0,7,0,0" Foreground="{StaticResource AccentBrush}" Visibility="Collapsed" AutomationProperties.Name="Progression de la conversion"/>
+                    </StackPanel>
+                  </Border>
+                </Grid>
+              </Border>
+            </Grid>
+            <ListBox x:Name="ImageBatchFiles" Style="{StaticResource BatchList}" Visibility="Collapsed"/>
+            <Border x:Name="ImageResult" Style="{StaticResource ConversionResult}" Margin="0,12,0,0" Visibility="Collapsed">
+              <DockPanel>
+                <TextBlock x:Name="ImageResultGlyph" Style="{StaticResource Glyph}" VerticalAlignment="Top" Margin="0,5,12,0"/>
+                <StackPanel>
+                  <TextBlock x:Name="ImageResultTitle" Text="Image enregistrée" FontSize="18" FontWeight="SemiBold" TextWrapping="Wrap"/>
+                  <TextBlock x:Name="ImageSavedName" FontWeight="SemiBold" TextWrapping="Wrap" Margin="0,3,0,0"/>
+                  <TextBlock x:Name="ImageSavedFolder" Foreground="{StaticResource MutedBrush}" TextWrapping="Wrap"/>
+                  <Button x:Name="ImageOpenFolder" Style="{StaticResource Action}" Content="Ouvrir le dossier" IsEnabled="False" HorizontalAlignment="Left" Margin="0,10,0,0"/>
+                </StackPanel>
+              </DockPanel>
+            </Border>
+          </StackPanel>
+          <StackPanel x:Name="YoutubeView" Visibility="Collapsed">
+            <Border Style="{StaticResource ConverterPane}">
+              <StackPanel>
+                <Label Content="_Lien ou identifiant YouTube" Target="{Binding ElementName=YoutubeInput}" Style="{StaticResource ConverterLabel}"/>
+                <TextBox x:Name="YoutubeInput" AutomationProperties.Name="Lien ou identifiant YouTube"/>
+                <WrapPanel Margin="0,12,0,0" AutomationProperties.Name="Contenu à télécharger">
+                  <RadioButton x:Name="YoutubeVideoMode" Content="Vidéo avec son (MP4)" GroupName="YoutubeMode" IsChecked="True" Margin="0,3,18,3"/>
+                  <RadioButton x:Name="YoutubeAudioMode" Content="Audio seul (MP3)" GroupName="YoutubeMode" Margin="0,3,0,3"/>
+                </WrapPanel>
+                <TextBlock x:Name="YoutubeModeHint" Style="{StaticResource ConverterMessage}"/>
+                <Button x:Name="YoutubeInspect" Content="Analyser le lien" Style="{StaticResource PrimaryAction}"
+                        HorizontalAlignment="Left" Margin="0,12,0,0" IsEnabled="False"/>
+                <StackPanel x:Name="YoutubeChoices" Visibility="Collapsed" Margin="0,20,0,0">
+                  <Separator Margin="0,0,0,16"/>
+                  <TextBlock x:Name="YoutubeTitle" Style="{StaticResource ConverterHeading}" Margin="0,0,0,12"/>
+                  <StackPanel x:Name="YoutubeResolutionFields">
+                    <Label Content="Choisissez une _résolution" Target="{Binding ElementName=YoutubeResolution}" Style="{StaticResource ConverterLabel}"/>
+                    <ComboBox x:Name="YoutubeResolution" AutomationProperties.Name="Résolution" HorizontalAlignment="Left" MinWidth="180"/>
+                  </StackPanel>
+                  <Button x:Name="YoutubeSave" Content="Télécharger…" Style="{StaticResource PrimaryAction}"
+                          HorizontalAlignment="Left" Margin="0,12,0,0" IsEnabled="False"/>
+                </StackPanel>
+                <TextBlock x:Name="YoutubeStatus" Style="{StaticResource ConverterMessage}" Foreground="{StaticResource TextBrush}"/>
+                <ProgressBar x:Name="YoutubeProgress" Height="5" Margin="0,8,0,0" Foreground="{StaticResource AccentBrush}"
+                             Visibility="Collapsed" AutomationProperties.Name="Progression de l’opération YouTube"/>
+                <Button x:Name="YoutubeCancel" Content="Annuler" Style="{StaticResource Action}"
+                        Visibility="Collapsed" HorizontalAlignment="Left" Margin="0,10,0,0"/>
+              </StackPanel>
+            </Border>
+            <Border x:Name="YoutubeResult" Style="{StaticResource ConversionResult}" Tag="Complet" Margin="0,12,0,0" Visibility="Collapsed">
+              <StackPanel>
+                <TextBlock x:Name="YoutubeResultTitle" FontSize="18" FontWeight="SemiBold" TextWrapping="Wrap"/>
+                <TextBlock x:Name="YoutubeSavedPath" TextWrapping="Wrap" Margin="0,4,0,0"/>
+                <Button x:Name="YoutubeOpenFolder" Content="Ouvrir le dossier" Style="{StaticResource Action}"
+                        HorizontalAlignment="Left" Margin="0,10,0,0"/>
+              </StackPanel>
+            </Border>
+          </StackPanel>
+          <StackPanel x:Name="VideoView" Visibility="Collapsed">
+            <StackPanel.Resources>
+              <SolidColorBrush x:Key="MediaTint" Color="#F5F2FD"/>
+              <SolidColorBrush x:Key="MediaHighlight" Color="#E9DFFA"/>
+              <SolidColorBrush x:Key="MediaOutline" Color="#BAA6DB"/>
+              <SolidColorBrush x:Key="MediaInk" Color="#7655AA"/>
+            </StackPanel.Resources>
+            <Grid x:Name="VideoWorkspace">
+              <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+              <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+              <Border x:Name="VideoSourcePane" Style="{StaticResource ConverterPane}" Margin="0,0,14,0">
+                <Grid>
+                  <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+                  <TextBlock Text="Fichiers source" Style="{StaticResource ConverterHeading}"/>
+                  <Border x:Name="VideoDropZone" Grid.Row="1" Style="{StaticResource ConverterDrop}">
+                    <Grid>
+                      <Rectangle Style="{StaticResource ConverterOutline}"/>
+                      <StackPanel Margin="14,16" VerticalAlignment="Center">
+                        <Grid x:Name="VideoArtwork" Style="{StaticResource ConverterArtArea}">
+                          <ContentControl Style="{StaticResource ConverterArtwork}">
+                            <Canvas Width="64" Height="33">
+                                <Path Data="M1,4 H12 M1,11 H8 M1,20 H8 M1,28 H12 M52,4 H63 M55,11 H63 M55,20 H63 M52,28 H63" Stroke="#CDB7EA" StrokeThickness="2" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+                                <Path Data="M25,6 Q25,4 27,5 L42,15 Q44,16 42,18 L27,28 Q25,29 25,27 Z" Fill="White"/>
+                              </Canvas>
+                          </ContentControl>
+                        </Grid>
+                        <TextBlock x:Name="VideoName" Text="Déposez des vidéos ici" TextAlignment="Center" TextWrapping="Wrap"
+                                   FontSize="18" FontWeight="SemiBold" Margin="0,9,0,0"/>
+                        <TextBlock x:Name="VideoDetails" TextAlignment="Center" Style="{StaticResource ConverterMessage}" Margin="0,4,0,0"/>
+                        <Button x:Name="VideoChoose" Content="Choisir des vidéos…" Style="{StaticResource PrimaryAction}"
+                                HorizontalAlignment="Center" Margin="0,13,0,0"/>
+                      </StackPanel>
+                    </Grid>
+                  </Border>
+                </Grid>
+              </Border>
+              <Border x:Name="VideoSettings" Grid.Column="1" Style="{StaticResource ConverterPane}">
+                <Grid>
+                  <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                  <DockPanel>
+                    <TextBlock DockPanel.Dock="Right" Text="&#xE9E9;" Style="{StaticResource Glyph}" FontSize="18"
+                               Foreground="{StaticResource MutedBrush}" VerticalAlignment="Top" Margin="8,4,0,0"/>
+                    <TextBlock Text="Réglages de sortie" Style="{StaticResource ConverterHeading}"/>
+                  </DockPanel>
+                  <StackPanel Grid.Row="1">
+                      <StackPanel Margin="0,0,0,0">
+                        <Label Content="_Format de sortie" Target="{Binding ElementName=VideoFormat}" Style="{StaticResource ConverterLabel}"/>
+                        <ComboBox x:Name="VideoFormat" AutomationProperties.Name="Format de sortie" IsTextSearchEnabled="True"/>
+                      </StackPanel>
+                      <StackPanel Margin="0,10,0,0">
+                        <Label Content="_Encodage vidéo" Target="{Binding ElementName=VideoCodec}" Style="{StaticResource ConverterLabel}"/>
+                        <ComboBox x:Name="VideoCodec" AutomationProperties.Name="Encodage vidéo" IsTextSearchEnabled="True"/>
+                      </StackPanel>
+                      <StackPanel Margin="0,10,0,0">
+                        <Label Content="_Qualité" Target="{Binding ElementName=VideoQuality}" Style="{StaticResource ConverterLabel}"/>
+                        <ComboBox x:Name="VideoQuality" AutomationProperties.Name="Qualité" IsTextSearchEnabled="True" DisplayMemberPath="Value" SelectedValuePath="Key"/>
+                      </StackPanel>
+                    <TextBlock x:Name="VideoWarning" Style="{StaticResource ConverterMessage}" Foreground="{StaticResource WarningBrush}" Visibility="Collapsed"/>
+                  </StackPanel>
+                  <Border Grid.Row="2" BorderBrush="{StaticResource LineBrush}" BorderThickness="0,1,0,0" Padding="0,11,0,0" Margin="0,16,0,0">
+                    <StackPanel>
+                      <TextBlock x:Name="VideoOutputHint" Style="{StaticResource ConverterMessage}" Margin="0,0,0,8"/>
+                      <WrapPanel>
+                        <Button x:Name="VideoSave" Content="Convertir et enregistrer…" Style="{StaticResource PrimaryAction}" IsEnabled="False" Margin="0,0,6,2"/>
+                        <Button x:Name="VideoCancel" Content="Annuler" Style="{StaticResource Action}" Visibility="Collapsed" Margin="0,0,0,2"/>
+                      </WrapPanel>
+                      <TextBlock x:Name="VideoStatus" Style="{StaticResource ConverterMessage}" Foreground="{StaticResource TextBrush}"/>
+                      <ProgressBar x:Name="VideoProgress" Height="5" Margin="0,7,0,0" Foreground="{StaticResource AccentBrush}" Visibility="Collapsed" AutomationProperties.Name="Progression de la conversion"/>
+                    </StackPanel>
+                  </Border>
+                </Grid>
+              </Border>
+            </Grid>
+            <ListBox x:Name="VideoBatchFiles" Style="{StaticResource BatchList}" Visibility="Collapsed"/>
+            <Border x:Name="VideoResult" Style="{StaticResource ConversionResult}" Margin="0,12,0,0" Visibility="Collapsed">
+              <DockPanel>
+                <TextBlock x:Name="VideoResultGlyph" Style="{StaticResource Glyph}" VerticalAlignment="Top" Margin="0,5,12,0"/>
+                <StackPanel>
+                  <TextBlock x:Name="VideoResultTitle" Text="Vidéo enregistrée" FontSize="18" FontWeight="SemiBold" TextWrapping="Wrap"/>
+                  <TextBlock x:Name="VideoSavedName" FontWeight="SemiBold" TextWrapping="Wrap" Margin="0,3,0,0"/>
+                  <TextBlock x:Name="VideoSavedFolder" Foreground="{StaticResource MutedBrush}" TextWrapping="Wrap"/>
+                  <Button x:Name="VideoOpenFolder" Style="{StaticResource Action}" Content="Ouvrir le dossier" IsEnabled="False" HorizontalAlignment="Left" Margin="0,10,0,0"/>
+                </StackPanel>
+              </DockPanel>
+            </Border>
+          </StackPanel>
+          <StackPanel x:Name="AudioView" Visibility="Collapsed">
+            <StackPanel.Resources>
+              <SolidColorBrush x:Key="MediaTint" Color="#EFF8F8"/>
+              <SolidColorBrush x:Key="MediaHighlight" Color="#D6EFEB"/>
+              <SolidColorBrush x:Key="MediaOutline" Color="#97CBC3"/>
+              <SolidColorBrush x:Key="MediaInk" Color="#297F79"/>
+            </StackPanel.Resources>
+            <Grid x:Name="AudioWorkspace">
+              <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+              <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+              <Border x:Name="AudioSourcePane" Style="{StaticResource ConverterPane}" Margin="0,0,14,0">
+                <Grid>
+                  <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+                  <TextBlock Text="Fichiers source" Style="{StaticResource ConverterHeading}"/>
+                  <Border x:Name="AudioDropZone" Grid.Row="1" Style="{StaticResource ConverterDrop}">
+                    <Grid>
+                      <Rectangle Style="{StaticResource ConverterOutline}"/>
+                      <StackPanel Margin="14,16" VerticalAlignment="Center">
+                        <Grid x:Name="AudioArtwork" Style="{StaticResource ConverterArtArea}">
+                          <ContentControl Style="{StaticResource ConverterArtwork}">
+                            <Path Data="M1,15 V19 M7,11 V22 M13,5 V28 M19,10 V23 M25,1 V32 M31,7 V26 M37,12 V21 M43,4 V29 M49,10 V23 M55,14 V19"
+                                    Stroke="White" StrokeThickness="2.7" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+                          </ContentControl>
+                        </Grid>
+                        <TextBlock x:Name="AudioName" Text="Déposez des fichiers audio ici" TextAlignment="Center" TextWrapping="Wrap"
+                                   FontSize="18" FontWeight="SemiBold" Margin="0,9,0,0"/>
+                        <TextBlock x:Name="AudioDetails" TextAlignment="Center" Style="{StaticResource ConverterMessage}" Margin="0,4,0,0"/>
+                        <Button x:Name="AudioChoose" Content="Choisir des fichiers audio…" Style="{StaticResource PrimaryAction}"
+                                HorizontalAlignment="Center" Margin="0,13,0,0"/>
+                      </StackPanel>
+                    </Grid>
+                  </Border>
+                </Grid>
+              </Border>
+              <Border x:Name="AudioSettings" Grid.Column="1" Style="{StaticResource ConverterPane}">
+                <Grid>
+                  <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                  <DockPanel>
+                    <TextBlock DockPanel.Dock="Right" Text="&#xE9E9;" Style="{StaticResource Glyph}" FontSize="18"
+                               Foreground="{StaticResource MutedBrush}" VerticalAlignment="Top" Margin="8,4,0,0"/>
+                    <TextBlock Text="Réglages de sortie" Style="{StaticResource ConverterHeading}"/>
+                  </DockPanel>
+                  <StackPanel Grid.Row="1">
+                      <StackPanel Margin="0,0,0,0">
+                        <Label Content="_Format de sortie" Target="{Binding ElementName=AudioFormat}" Style="{StaticResource ConverterLabel}"/>
+                        <ComboBox x:Name="AudioFormat" AutomationProperties.Name="Format de sortie" IsTextSearchEnabled="True"/>
+                      </StackPanel>
+                      <StackPanel x:Name="AudioTrackGroup" Visibility="Collapsed" Margin="0,10,0,0">
+                        <Label Content="_Piste à convertir" Target="{Binding ElementName=AudioTrack}" Style="{StaticResource ConverterLabel}"/>
+                        <ComboBox x:Name="AudioTrack" AutomationProperties.Name="Piste à convertir" IsTextSearchEnabled="True"/>
+                      </StackPanel>
+                      <StackPanel x:Name="AudioQualityGroup" Visibility="Collapsed" Margin="0,10,0,0">
+                        <Label Content="_Qualité" Target="{Binding ElementName=AudioQuality}" Style="{StaticResource ConverterLabel}"/>
+                        <ComboBox x:Name="AudioQuality" AutomationProperties.Name="Qualité" IsTextSearchEnabled="True" DisplayMemberPath="Value" SelectedValuePath="Key"/>
+                      </StackPanel>
+                    <TextBlock x:Name="AudioWarning" Style="{StaticResource ConverterMessage}" Foreground="{StaticResource WarningBrush}" Visibility="Collapsed"/>
+                  </StackPanel>
+                  <Border Grid.Row="2" BorderBrush="{StaticResource LineBrush}" BorderThickness="0,1,0,0" Padding="0,11,0,0" Margin="0,16,0,0">
+                    <StackPanel>
+                      <TextBlock x:Name="AudioOutputHint" Style="{StaticResource ConverterMessage}" Margin="0,0,0,8"/>
+                      <WrapPanel>
+                        <Button x:Name="AudioSave" Content="Convertir et enregistrer…" Style="{StaticResource PrimaryAction}" IsEnabled="False" Margin="0,0,6,2"/>
+                        <Button x:Name="AudioCancel" Content="Annuler" Style="{StaticResource Action}" Visibility="Collapsed" Margin="0,0,0,2"/>
+                      </WrapPanel>
+                      <TextBlock x:Name="AudioStatus" Style="{StaticResource ConverterMessage}" Foreground="{StaticResource TextBrush}"/>
+                      <ProgressBar x:Name="AudioProgress" Height="5" Margin="0,7,0,0" Foreground="{StaticResource AccentBrush}" Visibility="Collapsed" AutomationProperties.Name="Progression de la conversion"/>
+                    </StackPanel>
+                  </Border>
+                </Grid>
+              </Border>
+            </Grid>
+            <ListBox x:Name="AudioBatchFiles" Style="{StaticResource BatchList}" Visibility="Collapsed"/>
+            <Border x:Name="AudioResult" Style="{StaticResource ConversionResult}" Margin="0,12,0,0" Visibility="Collapsed">
+              <DockPanel>
+                <TextBlock x:Name="AudioResultGlyph" Style="{StaticResource Glyph}" VerticalAlignment="Top" Margin="0,5,12,0"/>
+                <StackPanel>
+                  <TextBlock x:Name="AudioResultTitle" Text="Fichier audio enregistré" FontSize="18" FontWeight="SemiBold" TextWrapping="Wrap"/>
+                  <TextBlock x:Name="AudioSavedName" FontWeight="SemiBold" TextWrapping="Wrap" Margin="0,3,0,0"/>
+                  <TextBlock x:Name="AudioSavedFolder" Foreground="{StaticResource MutedBrush}" TextWrapping="Wrap"/>
+                  <Button x:Name="AudioOpenFolder" Style="{StaticResource Action}" Content="Ouvrir le dossier" IsEnabled="False" HorizontalAlignment="Left" Margin="0,10,0,0"/>
+                </StackPanel>
+              </DockPanel>
+            </Border>
+          </StackPanel>
+          <StackPanel x:Name="OtherPage" Visibility="Collapsed">
+            <StackPanel.Resources>
+              <Style x:Key="CatalogCardButton" TargetType="Button">
+                <Setter Property="Margin" Value="5,0,5,10"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                <Setter Property="Template"><Setter.Value>
+                  <ControlTemplate TargetType="Button">
+                    <Border x:Name="Tile" CornerRadius="10" Padding="16,15,16,16" BorderThickness="1"
+                            BorderBrush="{DynamicResource LineBrush}" Background="{DynamicResource SurfaceBrush}">
+                      <Grid>
+                        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+                        <Grid>
+                          <Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                          <Border x:Name="IconTile" Width="30" Height="30" Background="#EAF0FF" CornerRadius="7">
+                            <TextBlock x:Name="ToolIcon" Text="{Binding Icon}" Style="{StaticResource Glyph}" FontSize="16" Foreground="#395ABF" HorizontalAlignment="Center"/>
+                          </Border>
+                          <TextBlock x:Name="FamilyName" Grid.Column="1" Text="{Binding Family}" FontWeight="SemiBold" FontSize="12"
+                                     Foreground="#3F5FB7" VerticalAlignment="Center" Margin="8,0,6,0"/>
+                          <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock x:Name="FavoriteStar" Text="&#xE735;" Style="{StaticResource Glyph}" FontSize="14" Foreground="{StaticResource AccentBrush}"
+                                       Visibility="Collapsed" Margin="0,0,9,0" ToolTip="Favori"/>
+                            <Path x:Name="OpenArrow" Width="13" Height="12" Stretch="Uniform" Data="M1,6 L12,6 M7,1 L12,6 7,11"
+                                  Stroke="#71809B" StrokeThickness="1.35" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+                          </StackPanel>
+                        </Grid>
+                        <TextBlock Grid.Row="1" Text="{Binding Title}" FontSize="17" FontWeight="SemiBold" Foreground="{DynamicResource TextBrush}"
+                                   Margin="0,11,0,4" TextWrapping="Wrap"/>
+                        <TextBlock Grid.Row="2" Text="{Binding Summary}" FontSize="13" LineHeight="18" Foreground="{DynamicResource MutedBrush}" TextWrapping="Wrap"/>
+                      </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                      <DataTrigger Binding="{Binding Family}" Value="Réseau">
+                        <Setter TargetName="IconTile" Property="Background" Value="#E1F4F1"/>
+                        <Setter TargetName="ToolIcon" Property="Foreground" Value="#11726F"/>
+                        <Setter TargetName="FamilyName" Property="Foreground" Value="#176C69"/>
+                      </DataTrigger>
+                      <Trigger Property="AutomationProperties.ItemStatus" Value="Favori">
+                        <Setter TargetName="FavoriteStar" Property="Visibility" Value="Visible"/>
+                      </Trigger>
+                      <DataTrigger Binding="{Binding Family}" Value="Système">
+                        <Setter TargetName="IconTile" Property="Background" Value="#F0EAFB"/>
+                        <Setter TargetName="ToolIcon" Property="Foreground" Value="#7651AA"/>
+                        <Setter TargetName="FamilyName" Property="Foreground" Value="#73529E"/>
+                      </DataTrigger>
+                      <DataTrigger Binding="{Binding Family}" Value="Fichiers">
+                        <Setter TargetName="IconTile" Property="Background" Value="#FFF0DE"/>
+                        <Setter TargetName="ToolIcon" Property="Foreground" Value="#90602B"/>
+                        <Setter TargetName="FamilyName" Property="Foreground" Value="#885924"/>
+                      </DataTrigger>
+                      <Trigger Property="IsMouseOver" Value="True">
+                        <Setter TargetName="Tile" Property="Background" Value="#F8FAFF"/>
+                        <Setter TargetName="Tile" Property="BorderBrush" Value="#97A9E6"/>
+                        <Setter TargetName="OpenArrow" Property="Stroke" Value="{DynamicResource AccentBrush}"/>
+                      </Trigger>
+                      <Trigger Property="IsPressed" Value="True"><Setter TargetName="Tile" Property="Background" Value="#ECF0FD"/></Trigger>
+                      <Trigger Property="IsKeyboardFocused" Value="True">
+                        <Setter TargetName="Tile" Property="BorderThickness" Value="2"/>
+                        <Setter TargetName="Tile" Property="Padding" Value="15,14,15,15"/>
+                        <Setter TargetName="Tile" Property="BorderBrush" Value="{DynamicResource AccentBrush}"/>
+                      </Trigger>
+                    </ControlTemplate.Triggers>
+                  </ControlTemplate>
+                </Setter.Value></Setter>
+              </Style>
+              <Style x:Key="CatalogFilter" TargetType="RadioButton">
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="GroupName" Value="CatalogFamily"/>
+                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                <Setter Property="Margin" Value="0,0,6,5"/>
+                <Setter Property="Padding" Value="13,5"/>
+                <Setter Property="FontSize" Value="13"/><Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="Foreground" Value="{DynamicResource MutedBrush}"/>
+                <Setter Property="Template"><Setter.Value>
+                  <ControlTemplate TargetType="RadioButton">
+                    <Grid>
+                      <Border x:Name="FilterFrame" CornerRadius="15" BorderThickness="1" Padding="{TemplateBinding Padding}" Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource LineBrush}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                      </Border>
+                      <Border x:Name="FilterFocus" CornerRadius="15" BorderThickness="2" BorderBrush="{DynamicResource InkBrush}" Visibility="Collapsed" IsHitTestVisible="False"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                      <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="FilterFrame" Property="Background" Value="#EDF1FF"/></Trigger>
+                      <Trigger Property="IsChecked" Value="True">
+                        <Setter TargetName="FilterFrame" Property="Background" Value="{DynamicResource AccentBrush}"/>
+                        <Setter TargetName="FilterFrame" Property="BorderBrush" Value="{DynamicResource AccentBrush}"/>
+                        <Setter Property="Foreground" Value="White"/>
+                      </Trigger>
+                      <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="FilterFocus" Property="Visibility" Value="Visible"/></Trigger>
+                    </ControlTemplate.Triggers>
+                  </ControlTemplate>
+                </Setter.Value></Setter>
+                <Style.Triggers><DataTrigger Binding="{Binding Tag, RelativeSource={RelativeSource AncestorType=WrapPanel}}" Value="Compact">
+                  <Setter Property="Padding" Value="8,5"/><Setter Property="Margin" Value="0,0,3,5"/>
+                </DataTrigger></Style.Triggers>
+              </Style>
+            </StackPanel.Resources>
+            <Border CornerRadius="13">
+              <Border.Background>
+                <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.2">
+                  <GradientStop Color="#192648" Offset="0"/><GradientStop Color="#21346D" Offset=".60"/><GradientStop Color="#304D9B" Offset="1"/>
+                </LinearGradientBrush>
+              </Border.Background>
+              <Grid x:Name="CatalogHeroContent" Margin="26,20,25,23">
+                <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                <StackPanel VerticalAlignment="Center">
+                  <TextBlock x:Name="CatalogTitle" Text="Catalogue d’outils" FontSize="35" Foreground="White" FontWeight="SemiBold" TextWrapping="Wrap"/>
+                  <TextBlock Text="Diagnostiquez votre PC, testez votre réseau et convertissez vos fichiers."
+                             Margin="1,4,0,0" Foreground="#DEE6FF" FontSize="14" TextWrapping="Wrap"/>
+                  <Grid Margin="0,17,0,0">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*" MaxWidth="465"/></Grid.ColumnDefinitions>
+                    <Border x:Name="CatalogSearchFrame" CornerRadius="7">
+                      <Border.Style>
+                        <Style TargetType="Border">
+                          <Setter Property="Background" Value="White"/><Setter Property="BorderThickness" Value="2"/>
+                          <Setter Property="BorderBrush" Value="White"/>
+                          <Style.Triggers><Trigger Property="IsKeyboardFocusWithin" Value="True"><Setter Property="BorderBrush" Value="#8FAAFF"/></Trigger></Style.Triggers>
+                        </Style>
+                      </Border.Style>
+                      <Grid MinHeight="36">
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="34"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                        <TextBlock Style="{StaticResource Glyph}" Text="&#xE721;" Foreground="#556789" FontSize="15" HorizontalAlignment="Center" IsHitTestVisible="False"/>
+                        <TextBox x:Name="CatalogSearch" Grid.Column="1" FontSize="14" Foreground="#1A2438" CaretBrush="#3656D4"
+                                 Background="Transparent" Padding="0" BorderThickness="0" VerticalContentAlignment="Center" FocusVisualStyle="{x:Null}"
+                                 AutomationProperties.Name="Rechercher un outil" AutomationProperties.AcceleratorKey="Ctrl+K">
+                          <TextBox.Template><ControlTemplate TargetType="TextBox">
+                            <Border Background="Transparent"><ScrollViewer x:Name="PART_ContentHost" VerticalAlignment="Center" Focusable="False"/></Border>
+                          </ControlTemplate></TextBox.Template>
+                        </TextBox>
+                        <TextBlock Grid.Column="1" Text="Rechercher un outil ou un format…" VerticalAlignment="Center" FontSize="14"
+                                   Foreground="#586780" TextTrimming="CharacterEllipsis" IsHitTestVisible="False">
+                          <TextBlock.Style><Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers><DataTrigger Binding="{Binding Text, ElementName=CatalogSearch}" Value=""><Setter Property="Visibility" Value="Visible"/></DataTrigger></Style.Triggers>
+                          </Style></TextBlock.Style>
+                        </TextBlock>
+                        <Border Grid.Column="2" VerticalAlignment="Center" Padding="5,1" Margin="5,0,7,0" CornerRadius="3" IsHitTestVisible="False"
+                                Background="#F4F6FB" BorderBrush="#DCE2EF" BorderThickness="1">
+                          <Border.Style><Style TargetType="Border">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers><DataTrigger Binding="{Binding Text, ElementName=CatalogSearch}" Value=""><Setter Property="Visibility" Value="Visible"/></DataTrigger></Style.Triggers>
+                          </Style></Border.Style>
+                          <TextBlock Text="Ctrl+K" FontSize="11" Foreground="#526078"/>
+                        </Border>
+                        <Button x:Name="CatalogClear" Grid.Column="2" Style="{StaticResource Action}" Padding="7,4" Margin="2,1,2,1"
+                                Visibility="Collapsed" ToolTip="Effacer la recherche" AutomationProperties.Name="Effacer la recherche">
+                          <TextBlock Text="&#xE711;" Style="{StaticResource Glyph}" FontSize="12"/>
+                        </Button>
+                      </Grid>
+                    </Border>
+                  </Grid>
+                </StackPanel>
+                <Viewbox x:Name="CatalogArt" Grid.Column="1" Width="234" MaxHeight="136" Margin="13,0,0,0" VerticalAlignment="Center" IsHitTestVisible="False" Focusable="False">
+                  <Canvas Width="266" Height="154" ClipToBounds="True">
+                    <Rectangle Width="266" Height="154">
+                      <Rectangle.Fill><RadialGradientBrush Center=".59,.55" RadiusX=".49" RadiusY=".55">
+                        <GradientStop Color="#A34E79F5" Offset="0"/><GradientStop Color="#004E79F5" Offset="1"/>
+                      </RadialGradientBrush></Rectangle.Fill>
+                    </Rectangle>
+                    <Rectangle Canvas.Left="1" Canvas.Top="1" Width="264" Height="151" Opacity=".38">
+                      <Rectangle.Fill><DrawingBrush TileMode="Tile" Viewport="0,0,11,11" ViewportUnits="Absolute" Viewbox="0,0,11,11" ViewboxUnits="Absolute">
+                        <DrawingBrush.Drawing><GeometryDrawing Brush="#94A9E7"><GeometryDrawing.Geometry><EllipseGeometry Center="2,2" RadiusX=".7" RadiusY=".7"/></GeometryDrawing.Geometry></GeometryDrawing></DrawingBrush.Drawing>
+                      </DrawingBrush></Rectangle.Fill>
+                    </Rectangle>
+                    <Path Data="M13,100 H42 L51,92 M202,32 L217,19 H251 M190,133 H219 L230,122 H253" Stroke="#6585CF" StrokeThickness="1"/>
+                    <Ellipse Canvas.Left="10" Canvas.Top="98" Width="4" Height="4" Fill="#A3BDFB"/>
+                    <Ellipse Canvas.Left="250" Canvas.Top="17" Width="4" Height="4" Fill="#A3BDFB"/>
+                    <Ellipse Canvas.Left="251" Canvas.Top="120" Width="4" Height="4" Fill="#A3BDFB"/>
+                    <Canvas>
+                      <Canvas.RenderTransform><MatrixTransform Matrix="1,-0.20,0.15,0.95,44,58"/></Canvas.RenderTransform>
+                      <Rectangle Canvas.Left="24" Canvas.Top="-16" Width="146" Height="88" RadiusX="5" RadiusY="5" Fill="#344E92" Stroke="#788ECD" StrokeThickness="1"/>
+                      <Rectangle Canvas.Left="12" Canvas.Top="-8" Width="146" Height="88" RadiusX="5" RadiusY="5" Fill="#344E93" Stroke="#9BAFE7" StrokeThickness="1.1"/>
+                      <Rectangle Width="146" Height="88" RadiusX="5" RadiusY="5" Stroke="#BCD1FF" StrokeThickness="1.5">
+                        <Rectangle.Fill><LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                          <GradientStop Color="#547ADD" Offset="0"/><GradientStop Color="#3758AB" Offset=".6"/><GradientStop Color="#2C458A" Offset="1"/>
+                        </LinearGradientBrush></Rectangle.Fill>
+                      </Rectangle>
+                      <Path Data="M1,15 H145" Stroke="#A2BDFB" StrokeThickness="1"/>
+                      <Ellipse Canvas.Left="7" Canvas.Top="6" Width="3" Height="3" Fill="#DAE8FF"/>
+                      <Ellipse Canvas.Left="14" Canvas.Top="6" Width="3" Height="3" Fill="#B2C9FF"/>
+                      <Ellipse Canvas.Left="21" Canvas.Top="6" Width="3" Height="3" Fill="#92B1F7"/>
+                      <Path Data="M9,33 H137 M9,49 H137 M9,65 H137 M29,22 V76 M51,22 V76 M73,22 V76 M95,22 V76 M117,22 V76"
+                            Stroke="#6485D1" StrokeThickness=".65"/>
+                      <Path Data="M9,60 L32,60 40,54 53,55 65,31 76,66 87,45 102,48 114,37 135,37" Stroke="#CDEBFF" StrokeThickness="2.5"
+                            StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+                      <Ellipse Canvas.Left="132.5" Canvas.Top="34.5" Width="5" Height="5" Fill="#EAF8FF"/>
+                      <Path Data="M10,79 H25 M29,79 H40" Stroke="#94B5FF" StrokeThickness="1.5"/>
+                    </Canvas>
+                  </Canvas>
+                </Viewbox>
+              </Grid>
+            </Border>
+            <Grid Margin="0,19,0,9">
+              <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+              <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+              <WrapPanel x:Name="CatalogFilters" VerticalAlignment="Center" AutomationProperties.Name="Filtrer par famille">
+                <RadioButton x:Name="CatalogAll" Content="Tous" Tag="" IsChecked="True" Style="{StaticResource CatalogFilter}"/>
+                <RadioButton x:Name="CatalogHardware" Content="Matériel" Tag="Matériel" Style="{StaticResource CatalogFilter}"/>
+                <RadioButton x:Name="CatalogNetwork" Content="Réseau" Tag="Réseau" Style="{StaticResource CatalogFilter}"/>
+                <RadioButton x:Name="CatalogSystem" Content="Système" Tag="Système" Style="{StaticResource CatalogFilter}"/>
+                <RadioButton x:Name="CatalogFiles" Content="Fichiers" Tag="Fichiers" Style="{StaticResource CatalogFilter}"/>
+              </WrapPanel>
+              <TextBlock x:Name="CatalogCount" Grid.Column="1" Margin="0,1,0,5" VerticalAlignment="Center" HorizontalAlignment="Right"
+                         FontSize="13" Foreground="{DynamicResource MutedBrush}"/>
+            </Grid>
+            <StackPanel x:Name="CatalogItems">
+              <UniformGrid x:Name="CatalogGrid" Columns="3" Margin="-5,0,-5,0"/>
+            </StackPanel>
+            <Border Style="{StaticResource Card}" Margin="0,0,0,8" Visibility="{Binding Visibility, ElementName=CatalogEmpty}">
+              <StackPanel HorizontalAlignment="Center" Margin="6,12">
+                <TextBlock Style="{StaticResource Glyph}" Text="&#xE721;" FontSize="22" Foreground="{DynamicResource AccentBrush}" HorizontalAlignment="Center"/>
+                <TextBlock x:Name="CatalogEmpty" Text="Aucun outil trouvé" FontSize="19" FontWeight="SemiBold" Margin="0,9,0,3"
+                           TextAlignment="Center" TextWrapping="Wrap" Visibility="Collapsed"/>
+                <TextBlock Text="Essayez un autre mot ou affichez tous les outils." Foreground="{DynamicResource MutedBrush}" TextAlignment="Center" TextWrapping="Wrap"/>
+                <Button x:Name="CatalogReset" Content="Afficher tous les outils" Style="{StaticResource Action}" HorizontalAlignment="Center" Margin="0,12,0,0"/>
+              </StackPanel>
+            </Border>
+          </StackPanel>
+          <StackPanel x:Name="HelpPage" Visibility="Collapsed"/>
+          <StackPanel x:Name="SettingsView" Visibility="Collapsed">
+            <TextBlock x:Name="SettingsNotice" Visibility="Collapsed" TextWrapping="Wrap"
+                       Foreground="{DynamicResource WarningBrush}" Margin="0,0,0,12"/>
+          </StackPanel>
+        </StackPanel>
+      </ScrollViewer>
+      <Border x:Name="DuplicateSelectionBar" Grid.Row="2" BorderThickness="0,1,0,0" BorderBrush="{StaticResource LineBrush}" Background="{StaticResource SurfaceBrush}" Padding="14,8">
+        <Border.Style><Style TargetType="Border"><Setter Property="Visibility" Value="Collapsed"/>
+          <Style.Triggers><DataTrigger Binding="{Binding IsVisible, ElementName=DuplicateCompare}" Value="True"><Setter Property="Visibility" Value="Visible"/></DataTrigger></Style.Triggers>
+        </Style></Border.Style>
+        <DockPanel MaxWidth="1280">
+          <Button x:Name="DuplicateReview" DockPanel.Dock="Right" Content="Vérifier ma sélection" Style="{StaticResource PrimaryAction}" Margin="8,0,0,0"/>
+          <StackPanel VerticalAlignment="Center">
+            <TextBlock x:Name="DuplicateSelectionCategory" FontSize="12" Foreground="{StaticResource MutedBrush}"/>
+            <TextBlock x:Name="DuplicateSelection" TextWrapping="Wrap" FontWeight="SemiBold"/>
+          </StackPanel>
+        </DockPanel>
+      </Border>
+    </Grid>
+  </Grid>
+</Window>
