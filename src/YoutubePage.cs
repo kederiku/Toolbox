@@ -97,6 +97,7 @@ namespace AtelierPC
                 Refresh();
             };
             openButton.Click += delegate { OpenSavedFolder(); };
+            UpdateNotice.WaitForTool(window, () => running != null);
             window.Closing += delegate(object sender, CancelEventArgs e) {
                 if (running == null || e.Cancel) return;
                 e.Cancel = true;

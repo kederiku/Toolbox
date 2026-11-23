@@ -41,6 +41,7 @@ namespace AtelierPC
             Func<Window, LocalNetwork, List<RouterClient>> readRouter = null)
         {
             this.connections = connections;
+            UpdateNotice.WaitForTool(window, () => running != null || refreshing);
             this.scan = scan;
             connection = (ComboBox)window.FindName("DevicesConnection");
             search = (Button)window.FindName("DevicesSearch");

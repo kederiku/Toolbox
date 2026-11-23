@@ -30,6 +30,9 @@ namespace AtelierPC
             if (args.Length == 1 && args[0] == PdfWatermarkPreview.Command) return PdfWatermarkPreview.RunWorker();
             try
             {
+                CheckUpdateRelease();
+                CheckUpdateInstaller();
+                CheckUpdateNotice();
                 CheckToolPreferences();
                 CheckYoutubeVideo();
                 CheckYoutubeDownload();

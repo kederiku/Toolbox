@@ -57,6 +57,8 @@ namespace AtelierPC
                 if (currentPage == usbMapPage) Get<Expander>("MonitorHistory").BringIntoView();
             };
             WatchUsbChanges();
+            UpdateNotice.WaitForTool(Window, () => busy || enabling || cleaningUsb || readingMap ||
+                performanceRun != null || speedCancellation != null || integrity.IsRunning);
             Get<StackPanel>("MapPage").SizeChanged += delegate(object sender, SizeChangedEventArgs e) {
                 if (e.WidthChanged) SizeMapLayout(e.NewSize.Width);
             };

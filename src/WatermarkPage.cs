@@ -95,6 +95,7 @@ namespace AtelierPC
                 workspace.ColumnDefinitions[1].Width = compact ? new GridLength(0) : new GridLength(6, GridUnitType.Star);
                 Get<Border>("SettingsPane").Margin = compact ? new Thickness(0, 0, 0, 10) : new Thickness(0, 0, 12, 0);
             };
+            UpdateNotice.WaitForTool(window, () => operation != null);
             window.Closing += delegate(object sender, CancelEventArgs e) {
                 if (e.Cancel || operation == null) return;
                 e.Cancel = true;

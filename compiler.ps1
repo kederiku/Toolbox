@@ -46,7 +46,17 @@ if ($Tester) {
     $options += '/win32icon:' + (Join-Path $PSScriptRoot 'src\Toolbox.ico')
     $options += '/target:winexe'
 }
-& $compilateur @options @references ("/out:" + $sortie) @fichiers
+$commun = Join-Path $PSScriptRoot 'updater\UpdateFiles.cs'
+$assistant = Join-Path ([System.IO.Path]::GetTempPath()) ('Toolbox.UpdateHelper-' + [Guid]::NewGuid() + '.exe')
+try {
+    & $compilateur /nologo /utf8output /codepage:65001 /warnaserror+ /optimize+ /target:exe /reference:System.Windows.Forms.dll ("/out:" + $assistant) $commun (Join-Path $PSScriptRoot 'updater\Program.cs')
+    if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+    $options += '/resource:' + $assistant + ',AtelierPC.UpdateHelper.exe'
+    $fichiers += $commun
+    & $compilateur @options @references ("/out:" + $sortie) @fichiers
+} finally {
+    if (Test-Path -LiteralPath $assistant) { Remove-Item -LiteralPath $assistant }
+}
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 if ($Tester) {
     try { & $sortie; $resultat = $LASTEXITCODE } finally { Remove-Item -LiteralPath $sortie }
